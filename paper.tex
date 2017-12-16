@@ -322,14 +322,18 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Performance Factors for Large Scale Machine Learning Applications}
+\title{
+%Performance Factors for Large Scale Machine Learning Applications
+A Beginners Guide to Perfomance Factors of Machine Learning Learning Applications with Focus on Neural Nets
+}
 
 \author{\IEEEauthorblockN{Johannes Wünsche}
-\IEEEauthorblockA{University Magdeburg\\
-Email: johannes.wuensche@st.ovgu.de}%since this is University intern only probably ok otherwise this would be shady
-\and
-\IEEEauthorblockN{Gabriel Campero Durand}
-\IEEEauthorblockA{University Magdeburg}}
+\IEEEauthorblockA{Otto-von-Guericke University Magdeburg\\
+Email: johannes.wuensche@st.ovgu.de}
+%\and
+%\IEEEauthorblockN{Gabriel Campero Durand}
+%\IEEEauthorblockA{Otto-von-Guericke University Magdeburg}
+}
 
 % make the title area
 \maketitle
@@ -348,6 +352,9 @@ Email: johannes.wuensche@st.ovgu.de}%since this is University intern only probab
 \IEEEpeerreviewmaketitle
 \section{Introduction}
 % no \IEEEPARstart
+BE A BIT PITCHIER!\\
+Machine Learning seems to everywhere around us. With the success of Deep Learning, Convolutional, Deep Belief, and other Neural Net specifications in the recent years this trend continues to be more and more influencing everyday application, may it be from music recommendation to personalized advertisement directly addressed to the consumer. But also in modern automation and research machine learning becomes a greater and greater field. We want to have a look at the most performance influencing factors while designing and implementing these networks. 
+
 \begin{itemize}
 \item Deliver a short introduction coining the expressions neural network(deep learning , recurrent, deep belief ...) and explain to focus in the further paper on deep learning 
 \item To what extend did we explore the performance of machine learning related to which factors and specialization of specific kind of nets
@@ -357,27 +364,41 @@ Email: johannes.wuensche@st.ovgu.de}%since this is University intern only probab
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
 
-\subsection{Neural Nets}
-A Neural Net describes an entity consisting of multiple kind of nodes, which are the inputs responsible for receiving the data belonging to the current input vector, the outputs acting as the units for the output vector in the net, and the hidden nodes responsible for transforming the data for later usage or output. These can be ordered into two groups, the open layers which contains the input and output nodes, and the hidden layers containing the hidden nodes. Although no hidden node has to be present to guarantee an acceptable result of the net for some problems and data sets.
-%TODO work out this para for better condensation of content
+%\subsection{Neural Nets}
+%A Neural Net describes an entity consisting of multiple kind of nodes, which are the inputs responsible for receiving the data belonging to the current input vector, the outputs acting as the units for the output vector in the net, and the hidden nodes responsible for transforming the data for later usage or output. These can be ordered into two groups, the open layers which contains the input and output nodes, and the hidden layers containing the hidden nodes. Although no hidden node has to be present to guarantee an acceptable result of the net for some problems and data sets.
+%%TODO work out this para for better condensation of content
+%
+%\subsubsection{Neural Nodes}
+%explain the base idea of deciding unit, perceptron, sigmoid soso
+%
+%\subsubsection{Step to Nets}
+%very short step to neural nets and why there are different types
+%
+%\subsection{Implementations for different languages}%maybe not will ask gabriel
+%here i will shortly name all implementations relevant to the following content
+% 
+%\subsection{Performance of Neural Nets}
+%here belongs a describtion of all the observed performance measures which we will use to classify the following factors to their influence on the overall performance
+%
+%\subsection{Performance Factors and their influence}
+%here will go the tables and their explanation of different factors found with their influence over scale of data and complexity of the net 
 
-\subsubsection{Neural Nodes}
-explain the base idea of deciding unit, perceptron, sigmoid soso
+\section{Choice of Calculation Unit}
+The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU and GPU-Clustering.
+\subsection{CPU}
+As the first most naive option we looked on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
+\subsubsection{Single-thread}
+The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required \emph{NUMBER OF EXAMPLE CAN BE ADDED HERE}.
+\subsubsection{Multi-thread}
+A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm. %maybe a nice little table here with speed improvements of different frameworks over the amount of coures used during the calculation
+Though this approach is limited by the actual core number available and should not overstep the number of physical cores, like with intel \emph{hyper-threading} technology, which can lengthen the required calculation time because of a more inefficient usage[link performance paper here(believe it was benchmarking state of the art neural network frameworks)]
+\subsection{GPU}
+A more advanced implementation is to use the shared memory, multi-core environment of modern GPUs. For example with NVIDIAs CUDA this can be done efficiently and result in a speed-up of calculation of up to 3 times the naive approachs performance. Allmost all recent neural net learning frameworks support this calculation unit because of its excellent performance rating for neural networks.
 
-\subsubsection{Step to Nets}
-very short step to neural nets and why there are different types
+Problems lie in the tightly restricted memory of graphic cards that may not be able to contain all nodes with their corresponding weights as well as training dataset. This leads to some communication overhead depending on the communication strategy chosen.
 
-\subsection{Implementations for different languages}%maybe not will ask gabriel
-here i will shortly name all implementations relevant to the following content
- 
-\subsection{Performance of Neural Nets}
-here belongs a describtion of all the observed performance measures which we will use to classify the following factors to their influence on the overall performance
-
-\subsection{Performance Factors and their influence}
-here will go the tables and their explanation of different factors found with their influence over scale of data and complexity of the net 
-
-
-
+\section{Communication strategy}
+Here I want clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -513,11 +534,8 @@ The authors would like to thank...
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
-
-\bibitem{IEEEhowto:kopka}jo,
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
+\bibitem{IEEEhowto:kopka}pap,
+S. Shi, Q. Wang, P. Xu and X. Chu, \emph{Benchmarking State-of-the-Art Deep Learning Software}, HK Baptist University, Hong Kong, 17th Feb 2017
 \end{thebibliography}
 
 
