@@ -93,8 +93,8 @@
 
 
 % *** CITATION PACKAGES ***
-%
-%\usepackage{cite}
+
+\usepackage{cite}
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
 % \cite{} output to follow that of the IEEE. Loading the cite package will
@@ -330,9 +330,6 @@ A Beginners Guide to Perfomance Factors of Machine Learning Learning Application
 \author{\IEEEauthorblockN{Johannes Wünsche}
 \IEEEauthorblockA{Otto-von-Guericke University Magdeburg\\
 Email: johannes.wuensche@st.ovgu.de}
-%\and
-%\IEEEauthorblockN{Gabriel Campero Durand}
-%\IEEEauthorblockA{Otto-von-Guericke University Magdeburg}
 }
 
 % make the title area
@@ -352,8 +349,7 @@ Email: johannes.wuensche@st.ovgu.de}
 \IEEEpeerreviewmaketitle
 \section{Introduction}
 % no \IEEEPARstart
-BE A BIT PITCHIER!\\
-Machine Learning seems to everywhere around us. With the success of Deep Learning, Convolutional, Deep Belief, and other Neural Net specifications in the recent years this trend continues to be more and more influencing everyday application, may it be from music recommendation to personalized advertisement directly addressed to the consumer. But also in modern automation and research machine learning becomes a greater and greater field. We want to have a look at the most performance influencing factors while designing and implementing these networks. 
+Machine Learning seems to be everywhere around us. With the success of Deep , Convolutional, Deep Belief, and other Neural Net specifications in the recent years because of the increasing capabilities of modern hardware, this trend continues to be more and more influencing on everyday application, may it be from music recommendation to personalized advertisement directly addressed to the consumer. But also in modern automation and research machine learning becomes a greater field managing to find more efficient ways to achieve better results in many expertise. We want to have a look at the most performance influencing factors of theses networks while designing and implementing them for specific applications for both small and large scale.
 
 \begin{itemize}
 \item Deliver a short introduction coining the expressions neural network(deep learning , recurrent, deep belief ...) and explain to focus in the further paper on deep learning 
@@ -383,22 +379,33 @@ Machine Learning seems to everywhere around us. With the success of Deep Learnin
 %\subsection{Performance Factors and their influence}
 %here will go the tables and their explanation of different factors found with their influence over scale of data and complexity of the net 
 
-\section{Choice of Calculation Unit}
+\section{Choice of Processing Unit}
 The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU and GPU-Clustering.
 \subsection{CPU}
 As the first most naive option we looked on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
 \subsubsection{Single-thread}
 The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required \emph{NUMBER OF EXAMPLE CAN BE ADDED HERE}.
 \subsubsection{Multi-thread}
-A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm. %maybe a nice little table here with speed improvements of different frameworks over the amount of coures used during the calculation
-Though this approach is limited by the actual core number available and should not overstep the number of physical cores, like with intel \emph{hyper-threading} technology, which can lengthen the required calculation time because of a more inefficient usage[link performance paper here(believe it was benchmarking state of the art neural network frameworks)]
+A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm.
+\begin{figure}
+\centering
+\begin{tabular}{c c c}
+FW & 1 Thread & 4 Threads\\
+\end{tabular}
+\caption{Simulation results for the network.}
+\label{fig_sim}
+\end{figure}
+
+Though this approach is limited by the actual core number available and should not overstep the number of physical cores, like with intel \emph{hyper-threading} technology, which can lengthen the required calculation time because of a more inefficient usage\cite{shi2016benchmarking}.
 \subsection{GPU}
-A more advanced implementation is to use the shared memory, multi-core environment of modern GPUs. For example with NVIDIAs CUDA this can be done efficiently and result in a speed-up of calculation of up to 3 times the naive approachs performance. Allmost all recent neural net learning frameworks support this calculation unit because of its excellent performance rating for neural networks.
+A more advanced implementation is to use the shared memory, multi-core environment of modern GPUs. For example with NVIDIAs CUDA this can be done efficiently and result in a speed-up of calculation of up to 3 times the CPU-based approachs performance for deep learning algorithms over optimized floting-point baseline\cite{shi2016benchmarking}. Allmost all recent neural net learning frameworks support this calculation unit because of its excellent performance rating for neural networks.
 
 Problems lie in the tightly restricted memory of graphic cards that may not be able to contain all nodes with their corresponding weights as well as training dataset. This leads to some communication overhead depending on the communication strategy chosen.
 
 \section{Communication strategy}
-Here I want clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
+Here I want to 
+clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
+TODO: Spanish Paper on SuperComputer Learning
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -499,13 +506,13 @@ Here I want clarify a bit on strategies to create an efficient CPU-GPUs intercha
 
 \section{Conclusion}
 yeah ... pretty much the conclusion shortly repeating the basis that is important for it and point the way they were created, should be larger part to emphasize the importance of some factors over others and the reasoning behind this classification
+\cite{shi2016benchmarking}
 
+TODO: Takeaway, different ideas, innnovative
 
 % use section* for acknowledgment
 \section*{Acknowledgment}
-
-
-The authors would like to thank...
+The author would like to thank Gabriel Campero Durand for advise and help to write the paper
 
 
 
@@ -519,26 +526,8 @@ The authors would like to thank...
 % The "triggered" command can be changed if desired:
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
-\bibitem{IEEEhowto:kopka}pap,
-S. Shi, Q. Wang, P. Xu and X. Chu, \emph{Benchmarking State-of-the-Art Deep Learning Software}, HK Baptist University, Hong Kong, 17th Feb 2017
-\end{thebibliography}
-
-
+\bibliography{paper}
+\bibliographystyle{IEEEtran}
 
 
 % that's all folks
