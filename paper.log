@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.18)  20 DEC 2017 17:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.18)  22 DEC 2017 17:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -505,13 +505,14 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <24> not available
 
 -- Lines per column: 56 (exact).
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 342.
+(Font)              <7> on input line 399.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 342.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 342.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 354.
+(Font)              <5> on input line 399.
+
+Overfull \hbox (12.69882pt too wide) in paragraph at lines 399--406
+ [][] 
+ []
+
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
@@ -531,24 +532,22 @@ Before submitting the final camera ready copy, remember to:
 
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 1762 strings out of 494879
- 25723 string characters out of 6178490
+ 1748 strings out of 494879
+ 25587 string characters out of 6178490
  80538 words of memory out of 5000000
- 5116 multiletter control sequences out of 15000+600000
- 106698 words of font info for 109 fonts, out of 8000000 for 9000
+ 5108 multiletter control sequences out of 15000+600000
+ 104875 words of font info for 103 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
- 26i,8n,19p,1133b,242s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 26i,8n,25p,654b,242s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
-/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.
-pfb>
-Output written on paper.pdf (2 pages, 69809 bytes).
+sr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
+times/utmri8a.pfb>
+Output written on paper.pdf (2 pages, 58611 bytes).
 PDF statistics:
- 36 PDF objects out of 1000 (max. 8388607)
- 25 compressed objects within 1 object stream
+ 28 PDF objects out of 1000 (max. 8388607)
+ 19 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

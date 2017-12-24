@@ -324,7 +324,7 @@
 % Do not put math or special symbols in the title.
 \title{
 %Performance Factors for Large Scale Machine Learning Applications
-A Beginners Guide to Perfomance Factors of Machine Learning Learning Applications with Focus on Neural Nets
+A Beginners Guide to Perfomance Factors of Machine Learning Learning Applications with Focus on Neural Nets and Deep Learning
 }
 
 \author{\IEEEauthorblockN{Johannes Wünsche}
@@ -338,26 +338,34 @@ Email: johannes.wuensche@st.ovgu.de}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-\begin{itemize}
-\item Deliver short introduction for neural networks with different aspect focused examples
-\item What we want to show in this paper(performance factors)
-\item To what end we came
-\item some other stuff that comes up during the paper and is important enough to be named at the beginning
-\end{itemize}
+%\begin{itemize}
+%\item Deliver short introduction for neural networks with different aspect focused examples
+%\item What we want to show in this paper(performance factors)
+%\item To what end we came
+%\item some other stuff that comes up during the paper and is important enough to be named at the beginning
+%\end{itemize}
+
+Machine Learning is probably the most present topic of computer science in the media. This popularity only increased over the recent years thorugh widely publicly known apllications ranging from DeepBlue(not so recent) to IBM Watson and AlphaGo. Because of these successes Machine Learning is sometimes viewed as omnipotent solution to every imaginable problem. This is most certainly not the case, Neural Nets and alike are powerful but require a large amount of maintenance
+
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
 \section{Introduction}
-Machine Learning seems to be everywhere around us. With the recent success of Deep, Convolutional and other Neural Networks, these kind of Machine Learning tools experience a kind of renaissance and usage in applications from industrial to service oriented. But also in modern automation and research machine learning becomes a greater field managing to find more efficient ways to achieve better results in many expertise. We want to have a look at the most performance influencing factors of theses networks while designing and implementing them for specific applications for both small and large scale. At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time.
+Machine Learning seems to be everywhere around us. With the recent success of Deep, Convolutional,and Neural Networks, and other Machine Learning tools, especially the, in general media, well reported Learners like AlphaGo, Silver or Watson, these are experiencing a kind of renaissance their usage has spread from industrial(e.g. Self-driving cars rely on autonomous interpretation of camera feed and sensor output that can be optimized by using machine learning) to retail. But also in modern automation and research, machine learning becomes a greater field managing to find more efficient ways to achieve better results in many expertise.
 
-\begin{itemize}
-\item Deliver a short introduction coining the expressions neural network(deep learning , recurrent, deep belief ...) and explain to focus in the further paper on deep learning 
-\item To what extend did we explore the performance of machine learning related to which factors and specialization of specific kind of nets
-\item Show which methods were used to explore neural nets
-\item Name the result again that was reached at the end
-\end{itemize}
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
+In this paper we want to observe and identify the most performance influencing factors of theses networks while designing and implementing them for specific applications for both small and large scales.
+We expect that this study will provide help for readers interested in learning about the requirements for managing data and operations of an efficient neural network.
+
+TODO: related surveys
+
+ At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time.
+
+\section{Background}
+The base of this paper is of course the model and idead of the neural network which the reader should be familiar with. Further ...
+
+\section{Choice of Neural Nets}
+
+
 
 %\subsection{Neural Nets}
 %A Neural Net describes an entity consisting of multiple kind of nodes, which are the inputs responsible for receiving the data belonging to the current input vector, the outputs acting as the units for the output vector in the net, and the hidden nodes responsible for transforming the data for later usage or output. These can be ordered into two groups, the open layers which contains the input and output nodes, and the hidden layers containing the hidden nodes. Although no hidden node has to be present to guarantee an acceptable result of the net for some problems and data sets.
@@ -385,14 +393,18 @@ As the first most naive option we looked on the CPU for training of the neural n
 \subsubsection{Single-thread}
 The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required \emph{NUMBER OF EXAMPLE CAN BE ADDED HERE}.
 \subsubsection{Multi-thread}
-A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm.
+A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm. The effect 
 \begin{figure}
 \centering
-\begin{tabular}{c c c}
-FW & 1 Thread & 4 Threads\\
+\begin{tabular}{c c c c c}
+\hline
+Framework & 1 Thread & 2 Threads &4 Threads & 8 Threads\\\hline
+Caffe & 1.324 & 0.790 & 0.578 & 15.444 \\
+Tensorflow & 7.062 & 4.789 & 2.648 & 1.938 \\
+Torch & 1.329 & 0.710 & 0.423 & na \\\hline
 \end{tabular}
-\caption{Simulation results for the network.}
-\label{fig_sim}
+\caption{Training time(in s) for a mini-batch of size 64 of a Fully Connected Network(FCN) trained with synthetic data on a i7-3820 with 4-physical cores using 3 different commonly used Deep Learning frameworks\cite{shi2016benchmarking}}
+\label{fig_ttfcn}
 \end{figure}
 
 Though this approach is limited by the actual core number available and should not overstep the number of physical cores, like with intel \emph{hyper-threading} technology, which can lengthen the required calculation time because of a more inefficient usage\cite{shi2016benchmarking}.
@@ -401,10 +413,10 @@ A more advanced implementation is to use the shared memory, multi-core environme
 
 Problems lie in the tightly restricted memory of graphic cards that may not be able to contain all nodes with their corresponding weights as well as training dataset. This leads to some communication overhead depending on the communication strategy chosen.
 
-\section{Communication strategy}
+\section{Scaling challenges}
 Here I want to 
 clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
-TODO: Spanish Paper on SuperComputer Learning
+TODO: Spanish thesis on SuperComputer Learning
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
