@@ -361,40 +361,23 @@ TODO: related surveys
  At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time.
 
 \section{Background}
-The base of this paper is of course the model and idead of the neural network which the reader should be familiar with. Further ...
+The reader is advised to be familiar with the base idea of a neural network and some common types of networks like the deep, convolutional, feed forward and recurrent networks.
+
+The most common neural network frameworks which we, because of their wide popularity, will mostly view are Tensorflow\cite{abadi2016tensorflow}, Caffe\cite{jia2014caffe}, Torch\cite{collobert2002torch}, CNTK, deeplearning4j, Keras, MXNET. These frameworks have been benchmarked in numerous settings and applications and can help us show performance influencing factors.
+
 
 \section{Choice of Neural Nets}
-
-
-
-%\subsection{Neural Nets}
-%A Neural Net describes an entity consisting of multiple kind of nodes, which are the inputs responsible for receiving the data belonging to the current input vector, the outputs acting as the units for the output vector in the net, and the hidden nodes responsible for transforming the data for later usage or output. These can be ordered into two groups, the open layers which contains the input and output nodes, and the hidden layers containing the hidden nodes. Although no hidden node has to be present to guarantee an acceptable result of the net for some problems and data sets.
-%%TODO work out this para for better condensation of content
-%
-%\subsubsection{Neural Nodes}
-%explain the base idea of deciding unit, perceptron, sigmoid soso
-%
-%\subsubsection{Step to Nets}
-%very short step to neural nets and why there are different types
-%
-%\subsection{Implementations for different languages}%maybe not will ask gabriel
-%here i will shortly name all implementations relevant to the following content
-% 
-%\subsection{Performance of Neural Nets}
-%here belongs a describtion of all the observed performance measures which we will use to classify the following factors to their influence on the overall performance
-%
-%\subsection{Performance Factors and their influence}
-%here will go the tables and their explanation of different factors found with their influence over scale of data and complexity of the net 
+what net when to use, and starting values of neural nets like amount of layers and starting weights
 
 \section{Choice of Processing Unit}
 The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU and GPU-Clustering.
 \subsection{CPU}
 As the first most naive option we looked on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
 \subsubsection{Single-thread}
-The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required \emph{NUMBER OF EXAMPLE CAN BE ADDED HERE}.
+The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required . But as can be thought of this does not uitilize the full capacity of the CPU and therefore results in performance loss in comparison to multithread usage(Fig. 1).
 \subsubsection{Multi-thread}
-A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm. The effect 
-\begin{figure}
+A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm. The effect  continues to grow by using more threads but reaches it limits when using more threads than physical cores available.
+\begin{figure} 
 \centering
 \begin{tabular}{c c c c c}
 \hline
@@ -413,9 +396,29 @@ A more advanced implementation is to use the shared memory, multi-core environme
 
 Problems lie in the tightly restricted memory of graphic cards that may not be able to contain all nodes with their corresponding weights as well as training dataset. This leads to some communication overhead depending on the communication strategy chosen.
 
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.2\textwidth]{a.png}
+%
+%\caption{Time per mini-batch in s compared between different amount of GPUs used\cite{shi2016benchmarking}}
+%\label{fig_m_gpu}
+%\end{figure}
+
+
+\subsection{GPU-Cluster}
+The next logical step is to use multiple GPUs further reducing training time but also creating new challenges, because of the decentralized nature of the Cluster, like communication overhead.  This is mostly used in large scale applications and is most of the time not needed in small scale.
+
+A main advantage of the Cluster is of course the increased computation power available during the training phase, reducing training time by 35\% when doubling the number of GPUs in CNTK and MXNET, 28 \% in Caffe and 10 \% in  Torch and Tensorflow\cite{shi2016benchmarking}.
+
+Another advantage is the greater availability of memory somewhat easing the restrictions of the memory restricted GPUs structure. While this is an advantage it is not efficient if used as the single goal of multiple GPU usage because of the high price connected to acquiring them.
+
+Fig. 2 visualizes this improvement showing the reduction of training time steadily with the increasing of amount of GPUs used. Although costly this leads to a constant improvement. Higher Numbers of GPUs can be again slower or offer no significant improvement if used the same as smaller amounts because of an increasing communication overhead and bottleneck in the CPU, which is responsible for managing seperate GPUs.
+
+\subsubsection{Multiple GPU-Clusters}
+Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required.
+
 \section{Scaling challenges}
-Here I want to 
-clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
+Here I want to clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
 TODO: Spanish thesis on SuperComputer Learning
 
 % An example of a floating figure using the graphicx package.
@@ -537,8 +540,8 @@ The author would like to thank Gabriel Campero Durand for advise and help to wri
 % The "triggered" command can be changed if desired:
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
-\bibliography{paper}
 \bibliographystyle{IEEEtran}
+\bibliography{paper}
 
 
 % that's all folks
