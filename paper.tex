@@ -360,13 +360,80 @@ TODO: related surveys
 
  At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time.
 
-\section{Background}
-The reader is advised to be familiar with the base idea of a neural network and some common types of networks like the deep, convolutional, feed forward and recurrent networks.
+\section{Background and Related Work}
+
+%%%%BEGIN SMALL SCALE NEURAL NET DESCRIPTION
+
+As a small scale neural network applications we define a network with few neural nodes inside the network and because of this rather limited size most of the time run on a single machine and or single processing unit(worker) which can complete the training set in a reasonable time.
+
+%%%%END SMALL SCALE NEURAL NET DESCRIPTION
+
+%%%%BEGIN LARGE SCALE NEURAL NET DESCRIPTION
+
+On the other hand as a large scale neural network applications we define a network with a large number of nodes which can because of the complexity of the resulting connections take a large amount of time to complete training if computed on one worker and therefore will take use of a distributed system consisting of multiple workers and one or more servers to synchronize the workers and distribute the required data.
+
+%%%%END  LARGE SCALE NEURAL NET DESCRIPTION
+
+%%%%BEGIN DESCRIPTION NETWORKS USED LATER
+
+Most commonly used Neural Networks of the more classic single or non hidden layer kind are Feed Forward, Auto Encoders and Restricted Boltzmann Machines, which all have only a simple layer of hidden nodes and therefore are quite restricted in what they can compute based on the input data. 
+
+Feed Forward Networks(FFN) simply connects input, hidden and output layers with an all to all connection between the layers with the number of outputs being equal or smaller to the number of hidden nodes.
+
+Auto Encoders(AE) are of an similar build but the hidden layer compresses the input information into fewer nodes while these are later again decompressed to output nodes that match the previously given input nodes.
+
+Restricted Boltzmann Machines(RBM) only have an input and an output layer with an all to all connection between these. This RBM has in comparison to the normal Boltzmann Machine a better training behaviour which leads to a faster trained network.
+
+A more advanced architecture is to increase the number of hidden layers to enlarge the application possibility of these networks for more complex models these are then called Deep Networks. The most commonly used ones are Variational Auto Encoders , Deep Belief Networks, Generative Adversial Networks, Recurrent Neural Networks ,e.g. Long short-term memory networks, Deep Convolutional Neural Networks, Deconvolutional Networks.
+
+Variational Auto Encoders(VAE) consists of a encoder, sampler and decoder and are able to to generate output based on specification given to the VAE. 
+
+Deep Belief Networks(DBN) are a combination of RBM and FFN in which the RBM are used to pretrain the network with the initial training 
+data and the FFN to adjust the learned values slightly to improve the result. 
+
+Generative Adversial Networks(GAN) like the VAE creates random output based on the model found in the given training data. VAE are a specialization of GAN because of the restrictions that can be set for the output which is not possible in a GAN.
+
+Deep Convolutional Networks(DCN) are based on Convolutional Nodes compressing the incoming information into the needed base model and then calculate the required output.\cite{PattersonGibson17} They are used to abstract input information into more general models.
+
+Deconvolutional Networks(DN)\cite{zeiler2014visualizing} are less surprisingly the opposite of DCN in the idea that input information is first spread to a larger amount of nodes and then processed by the following Nodes to be used by the output.
+
+Long short-term memory(LSTM)\cite{hochreiter1997long} are a variant of Recurrent Neural Networks including additionally memory cells and gates that control the content of the cells. This model has been able to improve learning process of RNN and results.
+
+%%%%END DESCRIPTION NETWORKS USED LATER
+
+%%%%BEGIN TRAINING ALGORITHMS
+%%THE POSITION OF THIS CAN BE CHANGED
+The reason why the training of neural networks is so expensive can be traced back to the algorithm used to train all commonly used networks, which is backpropagation. Backpropagation is based on the idea that we calculate the deviation of the output values from the actual result and then use this backwards thorugh the layers of the net to calculate a correction,based on the error of the node and the learning rate, for each connection weight until the input layer is reached\cite{riedmiller1993direct}. Some Networks like DBN use a slightly 
+diverged "Gentle" Backpropagation, which uses a lowered learning rate after the initial values have been found from the training data with the help of the pretrain RBM \cite{PattersonGibson17}.
+%%%%END TRAINING ALGORITHMS
+
+%%%%BEGIN INFORMATION DATA FLOW
+
+Another performance influencing factor besides the actual neural net and the used learning algorithm is the amount of data required for the net to be trained and the size of the input of each training example.While this is mostly important for large scale applications it can also be hindering for smaller ones. For example if we use a Convolutional Neural Network to classify the content of a greyscale picture we get for small $512*512$ sized images $262144$ inputs that each need to be transferred to the processing unit, CPU or GPU, for each example.
+
+This large amount of data can for one take some time to be transferred, if for example this data package is required by an external processing unit like a GPU other units can not  receive new data and therefore lose performance due to them being idle. Also if too much data is needed in relation to the actual output the data storage can achieve enduring performance loss will occur.  
+
+Further can the required training data exceed direct accessible memory from the processing unit, enhancing the problem of delivering data to all processing units.
+
+Additionally the synchronization can be somewhat difficult and extensive for large neural networks on multiple processing units because of the interchange of new weights calculated between them after a certain number of iterations on their training cases.
+
+%%%%END INFORMATION DATA FLOW
+
+%%%%BEGIN INFORMATION ACTUAL USED IMPLEMENTATIONS
 
 The most common neural network frameworks which we, because of their wide popularity, will mostly view are Tensorflow\cite{abadi2016tensorflow}, Caffe\cite{jia2014caffe}, Torch\cite{collobert2002torch}, CNTK, deeplearning4j, Keras, MXNET. These frameworks have been benchmarked in numerous settings and applications and can help us show performance influencing factors.
 
+%TODO some more detailed stuff about it
+%%%%END INFORMATION ACUTAL USED IMPLEMENTATIONS
 
-\section{Choice of Neural Nets}
+%%%%BEGIN RELATED WORK
+
+The topic of performance of neural networks and influencing factors has been touched by many benchmarking survey like \cite{shi2016benchmarking} and \cite{qi2016paleo}.	 But we hope to offer a collected view on the most influencing factors in a more abstract style.
+
+%%%%END RELATED WORK
+
+
+\section{Choice of Neural Nets}	
 what net when to use, and starting values of neural nets like amount of layers and starting weights
 
 \section{Choice of Processing Unit}

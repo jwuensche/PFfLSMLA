@@ -21,8 +21,52 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{PattersonGibson17}
+\BIBentryALTinterwordspacing
+J.~Patterson and A.~Gibson, \emph{Deep Learning: A Practitioner's
+  Approach}.\hskip 1em plus 0.5em minus 0.4em\relax Beijing: O'Reilly, 2017.
+  [Online]. Available:
+  \url{https://www.safaribooksonline.com/library/view/deep-learning/9781491924570/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{zeiler2014visualizing}
+M.~D. Zeiler and R.~Fergus, ``Visualizing and understanding convolutional
+  networks,'' in \emph{European conference on computer vision}.\hskip 1em plus
+  0.5em minus 0.4em\relax Springer, 2014, pp. 818--833.
+
+\bibitem{hochreiter1997long}
+S.~Hochreiter and J.~Schmidhuber, ``Long short-term memory,'' \emph{Neural
+  computation}, vol.~9, no.~8, pp. 1735--1780, 1997.
+
+\bibitem{abadi2016tensorflow}
+M.~Abadi, A.~Agarwal, P.~Barham, E.~Brevdo, Z.~Chen, C.~Citro, G.~S. Corrado,
+  A.~Davis, J.~Dean, M.~Devin \emph{et~al.}, ``Tensorflow: Large-scale machine
+  learning on heterogeneous distributed systems,'' \emph{arXiv preprint
+  arXiv:1603.04467}, 2016.
+
+\bibitem{jia2014caffe}
+Y.~Jia, E.~Shelhamer, J.~Donahue, S.~Karayev, J.~Long, R.~Girshick,
+  S.~Guadarrama, and T.~Darrell, ``Caffe: Convolutional architecture for fast
+  feature embedding,'' in \emph{Proceedings of the 22nd ACM international
+  conference on Multimedia}.\hskip 1em plus 0.5em minus 0.4em\relax ACM, 2014,
+  pp. 675--678.
+
+\bibitem{collobert2002torch}
+R.~Collobert, S.~Bengio, and J.~Mari{\'e}thoz, ``Torch: a modular machine
+  learning software library,'' Idiap, Tech. Rep., 2002.
+
+\bibitem{riedmiller1993direct}
+M.~Riedmiller and H.~Braun, ``A direct adaptive method for faster
+  backpropagation learning: The rprop algorithm,'' in \emph{Neural Networks,
+  1993., IEEE International Conference on}.\hskip 1em plus 0.5em minus
+  0.4em\relax IEEE, 1993, pp. 586--591.
+
 \bibitem{shi2016benchmarking}
 S.~Shi, Q.~Wang, P.~Xu, and X.~Chu, ``Benchmarking state-of-the-art deep
   learning software tools,'' \emph{arXiv preprint arXiv:1608.07249}, 2016.
+
+\bibitem{qi2016paleo}
+H.~Qi, E.~R. Sparks, and A.~Talwalkar, ``Paleo: A performance model for deep
+  neural networks,'' 2016.
 
 \end{thebibliography}
