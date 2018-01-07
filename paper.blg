@@ -8,51 +8,53 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: paper.bib
+Warning--I didn't find a database entry for "websitetext"
+Warning--I didn't find a database entry for "soltau2016neural"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 Warning--empty journal in qi2016paleo
 
 Done.
-You've used 14 entries,
+You've used 16 entries,
             4087 wiz_defined-function locations,
-            892 strings with 9561 characters,
-and the built_in function-call counts, 8007 in all, are:
-= -- 602
-> -- 201
-< -- 40
-+ -- 107
-- -- 39
-* -- 352
-:= -- 1255
-add.period$ -- 32
-call.type$ -- 14
-change.case$ -- 17
-chr.to.int$ -- 102
-cite$ -- 15
-duplicate$ -- 597
-empty$ -- 695
-format.name$ -- 48
-if$ -- 1831
+            906 strings with 9909 characters,
+and the built_in function-call counts, 9235 in all, are:
+= -- 707
+> -- 222
+< -- 49
++ -- 119
+- -- 42
+* -- 405
+:= -- 1452
+add.period$ -- 36
+call.type$ -- 16
+change.case$ -- 20
+chr.to.int$ -- 126
+cite$ -- 17
+duplicate$ -- 687
+empty$ -- 793
+format.name$ -- 52
+if$ -- 2112
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 124
-newline$ -- 75
-num.names$ -- 11
-pop$ -- 342
+int.to.str$ -- 16
+missing$ -- 139
+newline$ -- 83
+num.names$ -- 13
+pop$ -- 380
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 598
+skip$ -- 692
 stack$ -- 0
-substring$ -- 255
-swap$ -- 421
-text.length$ -- 6
+substring$ -- 315
+swap$ -- 491
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 14
+type$ -- 16
 warning$ -- 1
-while$ -- 27
-width$ -- 16
-write$ -- 148
-(There was 1 warning)
+while$ -- 33
+width$ -- 18
+write$ -- 168
+(There were 3 warnings)

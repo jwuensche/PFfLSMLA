@@ -93,6 +93,18 @@ S.~Shi, Q.~Wang, P.~Xu, and X.~Chu, ``Benchmarking state-of-the-art deep
 H.~Qi, E.~R. Sparks, and A.~Talwalkar, ``Paleo: A performance model for deep
   neural networks,'' 2016.
 
+\bibitem{junyanz2017}
+\BIBentryALTinterwordspacing
+Junyanz, ``junyanz/igan,'' Apr 2017, access Date: 07.01.18 10:58:57. [Online].
+  Available: \url{https://github.com/junyanz/iGAN}
+\BIBentrySTDinterwordspacing
+
+\bibitem{zhong2016diversified}
+P.~Zhong and Z.~Gonga, ``a diversified deep belief network for hyperspectral
+  image classification,'' \emph{ISPRS-International Archives of the
+  Photogrammetry, Remote Sensing and Spatial Information Sciences}, pp.
+  443--449, 2016.
+
 \bibitem{sastre2017scalability}
 F.~Sastre~Cabot, ``Scalability study of deep learning algorithms in high
   performance computer infrastructures,'' Master's thesis, Universitat

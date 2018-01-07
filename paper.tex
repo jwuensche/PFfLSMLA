@@ -338,6 +338,9 @@ TODO: related surveys
 
  At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN BACKGROUND
+
 \section{Background and Related Work}
 
 %%%%BEGIN SMALL SCALE NEURAL NET DESCRIPTION
@@ -375,7 +378,7 @@ Deep Convolutional Networks(DCN) are based on Convolutional Nodes compressing th
 
 Deconvolutional Networks(DN)\cite{zeiler2014visualizing} are less surprisingly the opposite of DCN in the idea that input information is first spread to a larger amount of nodes and then processed by the following Nodes to be used by the output.
 
-Long short-term memory(LSTM)\cite{hochreiter1997long} are a variant of Recurrent Neural Networks including additionally memory cells and gates that control the content of the cells. This model has been able to improve learning process of RNN and results.
+Long short-term memory(LSTM)\cite{hochreiter1997long} are a variant of Recurrent Neural Networks(RNN) including additionally memory cells and gates that control the content of the cells. This model has been able to improve learning process of RNN and results.
 
 %%%%END DESCRIPTION NETWORKS USED LATER
 
@@ -406,7 +409,7 @@ The most common neural network frameworks which we, because of their wide popula
 
 %%%%BEGIN PROCESSING UNIT
 
-TODO
+The next major performance influencing factor will be the choice of the actual processing unit. This decision is the most computation time influencing and can also influence the quality of the result. We divide our processing unit into three groups starting with the CPU,which have a greater memory capability because they can be equipped with additional RAM sticks but posses a smaller virtualization limit than GPUs because of their differentiating architecture, then the GPU,with a much larger architectural focus on multithreading than CPUs, and following GPU Clusters,being simple a seperate unit consisting of multiple GPUs, like they are used in supercomputers.
 
 %%%%END PROCESSIONG UNIT
 
@@ -417,6 +420,8 @@ The topic of performance of neural networks and influencing factors has been tou
 
 %%%%END RELATED WORK
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CHOICE OF NETWORK
 
 \section{Choice of Neural Network}	
 
@@ -432,14 +437,14 @@ Simple task can be done by a network which is not deep like a FFN or a RBM. They
 \subsubsection{Deep Networks}
 More complex tasks more often require a deep neural network that can learn a more complex model than simple networks and offer a greater accuracy while doing this. The major downside of these networks that they require a larger amount of time to train and can be oversized for the actual to be represented model, and therefore adding unnecessary computation time. Large scale applications mostly contain deep networks because of their larger training sets and more complex models underlying the actual task.
 
-We can not offer a clear answer when to use which kind of network, every problem must be individually analyzed and based on the information, and complexity, as well as the acceptable error rate of the final network the decision has to be made. For cases that are unclear a simple network can first be constructed,because of their short training time, and if the result is unsatisfying a more complex network can be considered.
+We can not offer a clear answer when to use which kind of network, every problem must be individually analyzed and based on the information, and complexity, as well as the acceptable error rate of the final network the decision has to be made. For cases that are unclear a simple network can first be constructed,because of their short training time, and if the result is unsatisfying a more complex network can be considered.  Also it is advisable to use a deep network if the data is either of image or audio nature and/or needs to include changes over time of an input signal\cite{PattersonGibson17}.
 %%%%END ADVANTAGES DISADVANTAGES SIMPLE AND DEEP
 
-%%%%INTITAL VALUES AND AMOUNT OF NODES
+%%%%INTITAL VALUES
 
 An also important choice is the setting of the initial values of connection weights, here it is advisable to start at low values like $0.1$ to prevent straying too far from the optimal solution, since algorithm like backpropagation mostly find a local optimum initial values too far of from the global optimum will deliver worse results.
 
-%%%%END INITIAL VALUES AND AMOUNT OF NODES
+%%%%END INITIAL VALUES
 
 %%%%DETAILS SIMPLE AKA SMALL
 \subsection{Simple network Nodes}
@@ -456,13 +461,25 @@ Like in simple networks the amount of nodes to be used is an important value tha
 %%%%SPECIFIC NETS
 
 \subsection{Specific deep networks}
+Based on the content of the task a few networks can be more fitting than others to fulfill it. To deliver a shot overview of it we use a classification by Patterson\cite{PattersonGibson17} for the basis of our advise.
 
+If the task includes the generation of data to be output a GAN, VAE or RNN/LSTM. Which of these to choose is strongly dependent of the specific parameters of the task. For example if we want to generate random new data following the model of our training data the closest to this would be a GAN because it is by design designated to fulfill such tasks. But if new data which is not completely random is to be generated a VAE can be considered which offers by design this possibility. In practice there are lots of generation examples available using these networks for example image generation with GAN\cite{junyanz2017} or text generation with LSTM\cite{websitetext}.%this citation is broken need to fix later
+
+If the task includes classification or interpretation of visual data neural networks like CNN or DBN can be used. For once CNN are a straightforward choice since they are able to compress data and therefore abstract smaller data like the content of an image from the original image. But DBN offer also an possibility to complete the task with the major adavantage of being able to first roughly guess values from the training data and then train unsupervised in the fine-tuning phase as shown by Zhong 2016\cite{zhong2016diversified}.
+
+If the task includes the classification or intepretation of incoming data over time the ability of RNN and LSTMs to data that is of sequential nature comes in handy. For example voice recognition is possible to implement with the help of LSTMs as shown by Soltau 2016\cite{soltau2016neural}.
 %%%%END SPECIFIC NETS
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CHOICE OF PROCESSING UNIT
+
 
 \section{Choice of Processing Unit}
 The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU and GPU-Clustering.
 \subsection{CPU}
-As the first most naive option we looked on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
+As the first most naive option we have a look on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
 \subsubsection{Single-thread}
 The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required . But as can be thought of this does not uitilize the full capacity of the CPU and therefore results in performance loss in comparison to multithread usage(Fig. 1).
 \subsubsection{Multi-thread}
@@ -511,11 +528,18 @@ Fig. 2 visualizes this improvement showing the reduction of training time steadi
 
 
 \subsubsection{Multiple GPU-Clusters}
-Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required. Similar to multiple GPUs this leads at the beginning with 2 or more Clusters to a stronger improvement than later on with 8 to 16 Clusters (Fig. 3)
+Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required. Similar to multiple GPUs this leads at the beginning with 2 or more Clusters to a stronger improvement than later on with 8 to 16 Clusters as seen in [Fig. 3]
 
-\section{Scaling challenges}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CHALLENGES
+
+
+\section{Large scale challenges vs Small scale challenges}
 Here I want to clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
 TODO: Spanish thesis on SuperComputer Learning
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CONCLUSION
 
 
 \section{Conclusion}
