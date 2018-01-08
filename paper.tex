@@ -463,7 +463,7 @@ Like in simple networks the amount of nodes to be used is an important value tha
 \subsection{Specific deep networks}
 Based on the content of the task a few networks can be more fitting than others to fulfill it. To deliver a shot overview of it we use a classification by Patterson\cite{PattersonGibson17} for the basis of our advise.
 
-If the task includes the generation of data to be output a GAN, VAE or RNN/LSTM. Which of these to choose is strongly dependent of the specific parameters of the task. For example if we want to generate random new data following the model of our training data the closest to this would be a GAN because it is by design designated to fulfill such tasks. But if new data which is not completely random is to be generated a VAE can be considered which offers by design this possibility. In practice there are lots of generation examples available using these networks for example image generation with GAN\cite{junyanz2017} (corresponding paper \cite{zhu2016generative}) or text generation with LSTM\cite{gittesttensorflow}.
+If the task includes the generation of data to be output a GAN, VAE or RNN/LSTM. Which of these to choose is strongly dependent of the specific parameters of the task. For example if we want to generate random new data following the model of our training data the closest to this would be a GAN because it is by design designated to fulfill such tasks. But if new data which is not completely random is to be generated a VAE can be considered which offers by design this possibility. In practice there are lots of generation examples available using these networks for example image generation with GAN\cite{junyanz2017} (corresponding paper \cite{zhu2016generative}) or text generation with LSTM\cite{gittesttensorflow} (paper describing base approach\cite{sutskever2011generating}).
 
 If the task includes classification or interpretation of visual data neural networks like CNN or DBN can be used. For once CNN are a straightforward choice since they are able to compress data and therefore abstract smaller data like the content of an image from the original image. But DBN offer also an possibility to complete the task with the major adavantage of being able to first roughly guess values from the training data and then train unsupervised in the fine-tuning phase as shown by Zhong 2016\cite{zhong2016diversified}.
 
@@ -481,10 +481,10 @@ The next important choice is the choice of the actual operating calculation unit
 \subsection{CPU}
 As the first most naive option we have a look on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
 \subsubsection{Single-thread}
-The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required . But as can be thought of this does not uitilize the full capacity of the CPU and therefore results in performance loss in comparison to multithread usage(Fig. 1).
+The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required . But as can be thought of this does not uitilize the full capacity of the CPU and therefore results in performance loss in comparison to multithread usage(Table I).
 \subsubsection{Multi-thread}
 A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm. The effect  continues to grow by using more threads but reaches it limits when using more threads than physical cores available.
-\begin{figure} 
+\begin{table} 
 \centering
 \begin{tabular}{c c c c c}
 \hline
@@ -495,12 +495,26 @@ Torch & 1.329 & 0.710 & 0.423 & na \\\hline
 \end{tabular}
 \caption{Training time(in s) for a mini-batch of size 64 of a Fully Connected Network(FCN) trained with synthetic data on a i7-3820 with 4-physical cores using 3 different commonly used Deep Learning frameworks\cite{shi2016benchmarking}}
 \label{fig_ttfcn}
-\end{figure}
+\end{table}
 Though this approach is limited by the actual core number available and should not overstep the number of physical cores, like with intel \emph{hyper-threading} technology, which can lengthen the required calculation time because of a more inefficient usage\cite{shi2016benchmarking}.
 \subsection{GPU}
 A more advanced implementation is to use the shared memory, multi-core environment of modern GPUs. For example with NVIDIAs CUDA this can be done efficiently and result in a speed-up of calculation of up to 3 times the CPU-based approachs performance for deep learning algorithms over optimized floting-point baseline\cite{shi2016benchmarking}. Allmost all recent neural net learning frameworks support this calculation unit because of its excellent performance rating for neural networks.
 
 Problems lie in the tightly restricted memory of graphic cards that may not be able to contain all nodes with their corresponding weights as well as training dataset. This leads to some communication overhead depending on the communication strategy chosen.
+
+
+\subsection{Multi-GPU}
+To further improve performance during training multiple GPUs can be used to train the neural net. This shortens training time but also requires new actions like synchronizations of GPUs and splitting of data and/or neural network.
+
+A main advantage of Multi-GPU is of course the increased computation power available during the training phase, reducing training time by 35\% when doubling the number of GPUs in CNTK and MXNET, 28 \% in Caffe and 10 \% in  Torch and Tensorflow\cite{shi2016benchmarking}.
+
+Another advantage is the greater availability of memory somewhat easing the restrictions of the memory restricted GPUs structure. While this is an advantage it is not efficient if used as the single goal of multiple GPU usage because of the high price connected to acquiring them.
+
+Fig. 1 visualizes this improvement showing the reduction of training time steadily with the increasing of amount of GPUs used. Although costly this leads to a constant improvement. Higher Numbers of GPUs can be again slower or offer no significant improvement if used the same as smaller amounts because of an increasing communication overhead and bottleneck in the CPU, which is responsible for managing seperate GPUs.
+
+\subsubsection{Parallelism between GPUs}
+There are two kind of parallelism approaches applicable to the problem, first there is data parallelism which splits the training data into multiple sets, mostly used when the training set is splitable into multiple subsets. This can be done by dividing the data by case or by feature. Second model parallelism in which the net is divided into separately runnable parts which later can be joined together again, this method is fitting for single system distribution in which the GPUs share one PCIe bus, but lead to the result being more vulnerable to calculation failures \cite{sastre2017scalability}.
+
 
 \begin{figure}
 \centering
@@ -510,33 +524,49 @@ Problems lie in the tightly restricted memory of graphic cards that may not be a
 \label{fig_m_gpu}
 \end{figure}
 
-\subsection{GPU-Cluster}
-The next logical step is to use multiple GPUs further reducing training time but also creating new challenges, because of the decentralized nature of the Cluster, like communication overhead.  This is mostly used in large scale applications and is most of the time not needed in small scale.
+\subsection{GPU-Clusters}
 
-A main advantage of the Cluster is of course the increased computation power available during the training phase, reducing training time by 35\% when doubling the number of GPUs in CNTK and MXNET, 28 \% in Caffe and 10 \% in  Torch and Tensorflow\cite{shi2016benchmarking}.
-
-Another advantage is the greater availability of memory somewhat easing the restrictions of the memory restricted GPUs structure. While this is an advantage it is not efficient if used as the single goal of multiple GPU usage because of the high price connected to acquiring them.
-
-Fig. 2 visualizes this improvement showing the reduction of training time steadily with the increasing of amount of GPUs used. Although costly this leads to a constant improvement. Higher Numbers of GPUs can be again slower or offer no significant improvement if used the same as smaller amounts because of an increasing communication overhead and bottleneck in the CPU, which is responsible for managing seperate GPUs.
+The next logical step is to use multiple Multi-GPU systems further reducing training time but also creating new challenges, because of the decentralized nature of the Cluster, like communication overhead.  This is mostly used in large scale applications and is most of the time not needed in small scale.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{gpu_cluster_perf_win.png}
-\caption{Time in h of different asynchronous configurations until reaching destined error rate(loss)\cite{sastre2017scalability}}
+\caption{Time (in h) of different asynchronous configurations until reaching destined error rate(loss)\cite{sastre2017scalability}}
 \label{fig_cl_gpus}
 \end{figure}
 
 
 \subsubsection{Multiple GPU-Clusters}
-Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required. Similar to multiple GPUs this leads at the beginning with 2 or more Clusters to a stronger improvement than later on with 8 to 16 Clusters as seen in [Fig. 3]
+Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required. Similar to multiple GPUs this leads at the beginning with 2 or more Clusters to a stronger improvement than later on with 8 to 16 Clusters as seen in (Fig. 2)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CHALLENGES
 
 
-\section{Large scale challenges vs Small scale challenges}
-Here I want to clarify a bit on strategies to create an efficient CPU-GPUs interchange with as little overhead as possible.
-TODO: Spanish thesis on SuperComputer Learning
+\section{Large scale challenges and Small scale challenges}
+Dependent on the choice of scale each one has its own challenges to be considered during design and implementation of the neural network.
+
+\subsection{Small scale challenges}
+First and foremost it is important to notice that the biggest restrictions of small scale applications is the limited computation power available during the initial training process, later during usage of the net this is less impeding because either the net is completely pretrained and not changed later or the only change is some optimization when the network receives a query.
+
+This leads to the focus lying on the design to find the best fit of complexity to fit the desired model. Otherwise longer training time or less accuracy of the resulting network will conclude.
+
+Further small scale applications are relatively free of performance related complications, because of their relative simplicity and fast modern computer hardware enabling operations which are not optimal to be resolved in a non less desirable time
+
+\subsection{Large scale challenges}
+Opposing to small scale applications large scale ones to not have the actual processing power as their highest pending restriction but the communication and data transfer between all acting processing units. This problem occurs because a larger data flow has to be managed to more processing units compared to small scale applications.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{example_configuration.png}
+\caption{One example configuration consisting of a CPU and 4 connected GPU units for training the neural network.}
+\end{figure}
+
+The data flow is a problem on multiple fronts. For one the transfer of the training data from main memory to GPU memory can be the first bottleneck restricting faster processing speeds from being realized. For example if the GPU only receives data if no calculation is currently active this slows down the training process unnecessarily. To increase the speed of the calculation data can be fetched during the processing of already present data, this is called data prefetching as described and implemented by Yang 2010 \cite{yang2010gpgpu}. This solution can solve the problem partially but reaches it limits if used with multiple GPUs for example configuration (Fig. 3), which leads that the CPU will become a bottleneck if the training data of each individual GPU is too large to fit in the GPU memory, since the CPU can only manage transfer to the GPUs one at a time. For example a GPU equipped with PCI-Express 4.0 with a x16 Throughput can at best receive 31.5 GB/s, if we assume that all training data can be fit into main memory, that way if we need to refresh the complete memory of a modern GPU like NVIDIA GTX 1080, we need 0.253968 s, so to refresh all GPUs memory without including any overhead produced by switching operations between the GPUs we have an absolute transfer time of 1.015873 s, and for 3 units 0.7619 s, so if our GPU completes the desired calculation faster, for example 0.5 s, we have an 0.2619 s period in which our GPU idles every iteration, assumed that we can transfer all data during the calculation time. Therefore we have an effective calculation computation time each phase of 65.62 \%. This problem only enlargens if the main memory is to small to fit the complete training data since connections to solid state disk are too slow and hard disk do physically do not reach the required throughput.
+
+The other kind of data flow is required to synchronize the calculated neural network between the GPUs. This can be done multiple ways first 
+
+The next problem coming up with multiple processing units is the data flow between these, synchronizing the seperately calculated nets to reach a united model again, also have to be managed by the CPU, hence further reducing the effective calculation time of the GPUs. To ease the effect of this GPU to GPU communication technologies like GPUDirect from NVIDIA\cite{nvidiagpudirect2017} can be used allowing direct GPU to GPU communication if they are connected to the same PCIe bus, so this is only appplicable within a GPU Cluster or a single system.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CONCLUSION

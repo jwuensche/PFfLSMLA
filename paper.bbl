@@ -112,6 +112,11 @@ Spiglerg. (2017, Dec) spiglerg/rnn\_text\_generation\_tensorflow. Access Date:
   \url{https://github.com/spiglerg/RNN\_Text\_Generation\_Tensorflow}
 \BIBentrySTDinterwordspacing
 
+\bibitem{sutskever2011generating}
+I.~Sutskever, J.~Martens, and G.~E. Hinton, ``Generating text with recurrent
+  neural networks,'' in \emph{Proceedings of the 28th International Conference
+  on Machine Learning (ICML-11)}, 2011, pp. 1017--1024.
+
 \bibitem{zhong2016diversified}
 P.~Zhong and Z.~Gonga, ``a diversified deep belief network for hyperspectral
   image classification,'' \emph{ISPRS-International Archives of the
@@ -127,5 +132,16 @@ H.~Soltau, H.~Liao, and H.~Sak, ``Neural speech recognizer: Acoustic-to-word
 F.~Sastre~Cabot, ``Scalability study of deep learning algorithms in high
   performance computer infrastructures,'' Master's thesis, Universitat
   Polit{`e}cnica de Catalunya, 2017.
+
+\bibitem{yang2010gpgpu}
+Y.~Yang, P.~Xiang, J.~Kong, and H.~Zhou, ``A gpgpu compiler for memory
+  optimization and parallelism management,'' in \emph{ACM Sigplan Notices},
+  vol.~45, no.~6.\hskip 1em plus 0.5em minus 0.4em\relax ACM, 2010, pp. 86--97.
+
+\bibitem{nvidiagpudirect2017}
+\BIBentryALTinterwordspacing
+``Nvidia gpudirect,'' Apr 2017, access date: 08.01.18 15:45:57. [Online].
+  Available: \url{https://developer.nvidia.com/gpudirect}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}
