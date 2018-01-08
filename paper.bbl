@@ -99,11 +99,29 @@ Junyanz, ``junyanz/igan,'' Apr 2017, access Date: 07.01.18 10:58:57. [Online].
   Available: \url{https://github.com/junyanz/iGAN}
 \BIBentrySTDinterwordspacing
 
+\bibitem{zhu2016generative}
+J.-Y. Zhu, P.~Kr{\"a}henb{\"u}hl, E.~Shechtman, and A.~A. Efros, ``Generative
+  visual manipulation on the natural image manifold,'' in \emph{European
+  Conference on Computer Vision}.\hskip 1em plus 0.5em minus 0.4em\relax
+  Springer, 2016, pp. 597--613.
+
+\bibitem{gittesttensorflow}
+\BIBentryALTinterwordspacing
+Spiglerg. (2017, Dec) spiglerg/rnn\_text\_generation\_tensorflow. Access Date:
+  07.01.18 11:04:34. [Online]. Available:
+  \url{https://github.com/spiglerg/RNN\_Text\_Generation\_Tensorflow}
+\BIBentrySTDinterwordspacing
+
 \bibitem{zhong2016diversified}
 P.~Zhong and Z.~Gonga, ``a diversified deep belief network for hyperspectral
   image classification,'' \emph{ISPRS-International Archives of the
   Photogrammetry, Remote Sensing and Spatial Information Sciences}, pp.
   443--449, 2016.
+
+\bibitem{soltau2016neural}
+H.~Soltau, H.~Liao, and H.~Sak, ``Neural speech recognizer: Acoustic-to-word
+  lstm model for large vocabulary speech recognition,'' \emph{arXiv preprint
+  arXiv:1610.09975}, 2016.
 
 \bibitem{sastre2017scalability}
 F.~Sastre~Cabot, ``Scalability study of deep learning algorithms in high
