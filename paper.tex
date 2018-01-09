@@ -313,7 +313,7 @@ A Beginners Guide to Perfomance Factors of Machine Learning Applications with Fo
 
 \author{\IEEEauthorblockN{Johannes Wünsche}
 \IEEEauthorblockA{Otto-von-Guericke University Magdeburg\\
-Email: johannes.wuensche@st.ovgu.de}
+johannes.wuensche@st.ovgu.de}
 }
 
 % make the title area
@@ -329,7 +329,7 @@ Machine Learning is probably the most present topic of computer science in gener
 
 \IEEEpeerreviewmaketitle
 \section{Introduction}
-Machine Learning seems to be everywhere around us. With the recent success of Deep, Convolutional,and Neural Networks, and other Machine Learning tools, especially the, in general media, well reported Learners like AlphaGo, Silver or Watson, these are experiencing a kind of renaissance their usage has spread from industrial(e.g. Self-driving cars rely on autonomous interpretation of camera feed and sensor output that can be optimized by using machine learning) to retail. But also in modern automation and research, machine learning becomes a greater field managing to find more efficient ways to achieve better results in many expertise.
+Machine Learning seems to be everywhere around us. With the recent success of Neural Networks, and other Machine Learning tools, especially the, in general media, well reported learners like AlphaGo, Silver or IBM Watson, these are experiencing a kind of renaissance their usage has spread from industrial(e.g. Self-driving cars rely on autonomous interpretation of camera feed and sensor output that can be optimized by using machine learning) to retail. But also in modern automation and research, machine learning becomes a greater field managing to find more efficient ways to achieve better results in many expertise.
 
 In this paper we want to observe and identify the most performance influencing factors of theses networks while designing and implementing them for specific applications for both small and large scale applications.
 We expect that this study will provide help for readers interested in learning about the the initial design of neural networks, requirements for managing data, and operations of an efficient neural network.
@@ -345,13 +345,13 @@ TODO: related surveys
 
 %%%%BEGIN SMALL SCALE NEURAL NET DESCRIPTION
 
-As a small scale neural network applications we define a network with few neural nodes inside the network and because of this rather limited size most of the time run on a single machine and or single processing unit(worker) which can complete the training set in a reasonable time.
+As a small scale neural network applications we define a network with few neural nodes inside the network and because of this rather limited size it is most of the time run on a single machine and or single processing unit which can complete the training process of the net in a reasonable time.
 
 %%%%END SMALL SCALE NEURAL NET DESCRIPTION
 
 %%%%BEGIN LARGE SCALE NEURAL NET DESCRIPTION
 
-On the other hand as a large scale neural network applications we define a network with a large number of nodes which can because of the complexity of the resulting connections take a large amount of time to complete training if computed on one worker and therefore will take use of a distributed system consisting of multiple workers and one or more servers to synchronize the workers and distribute the required data.
+On the other hand as a large scale neural network applications we define a network with a large number of nodes which can because of the complexity of the resulting connections take a large amount of time to complete training if computed on one processing unit and therefore will take use of a distributed system consisting of multiple units in a single system or more servers to synchronize multiple systems of processing units and distribute the required data.
 
 %%%%END  LARGE SCALE NEURAL NET DESCRIPTION
 
@@ -498,7 +498,7 @@ Torch & 1.329 & 0.710 & 0.423 & na \\\hline
 \end{table}
 Though this approach is limited by the actual core number available and should not overstep the number of physical cores, like with intel \emph{hyper-threading} technology, which can lengthen the required calculation time because of a more inefficient usage\cite{shi2016benchmarking}.
 \subsection{GPU}
-A more advanced implementation is to use the shared memory, multi-core environment of modern GPUs. For example with NVIDIAs CUDA this can be done efficiently and result in a speed-up of calculation of up to 3 times the CPU-based approachs performance for deep learning algorithms over optimized floting-point baseline\cite{shi2016benchmarking}. Almost all recent neural net learning frameworks support this calculation unit because of its excellent performance rating for neural networks.
+A more advanced implementation is to use the shared memory, multi-core environment of modern GPUs. For example with the help of  NVIDIAs CUDA this can be done efficiently and result in a speed-up of calculation of up to 3 times the CPU-based approachs performance for deep learning algorithms over optimized floting-point baseline\cite{shi2016benchmarking}. Almost all recent neural net learning frameworks support GPUs because of its excellent performance rating for neural networks.
 
 Problems lie in the tightly restricted memory of graphic cards that may not be able to contain all nodes with their corresponding weights as well as training dataset. This leads to some communication overhead depending on the communication strategy chosen.
 
@@ -587,7 +587,7 @@ Synchronous training, while being recommend for setups that have 40 GPUs or less
 %asynchronous
 If an asynchronous training approach is used problems may occur influencing the result, if updates are to sporadic and different versions of values drift too far apart. To avoid this problem GPU-Cluster configurations do not rely on complete asynchronous training startegies, but on the already described mixed-asynchronous minimizing this problem while still reducing possible communication overhead.
 
-To ease the effect of GPU to GPU communication,by relieveing the CPU of managing the , technologies like GPUDirect from NVIDIA\cite{nvidiagpudirect2017} can be used allowing direct GPU to GPU communication if they are connected to the same PCIe bus, so this is only appplicable within a GPU Cluster or a single system and does not remove all communication overhead
+To ease the effect of GPU to GPU communication,by relieveing the CPU of managing them, technologies like GPUDirect from NVIDIA\cite{nvidiagpudirect2017} can be used allowing direct GPU to GPU communication if they are connected to the same PCIe bus, so this is only appplicable within a GPU Cluster or a single system and does not remove all communication overhead. Also shared memory between GPUs can come in place saving synchronization between them.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CONCLUSION
@@ -595,12 +595,10 @@ To ease the effect of GPU to GPU communication,by relieveing the CPU of managing
 
 \section{Conclusion}
 %Summary
-During our survey we observed that the most influencing factors are the basic choice of neural network to be used, this includes its complexity as well as the actual architecture the network is build of. Further the processing unit that is chosen has a strong influence on the quality and speed the final network that lies within acceptable error limits will be reached. Based on the choice of this other factors come into consideration influencing the process like communication between processing units and parallelism of data between them. They are not quite as influential as the first two but can lead to a strong improvement or worsening.
+During our survey we observed that the most influencing factors are the basic choice of neural network to be used, this includes its complexity as well as the actual architecture the network is build of. Further the processing unit that is chosen has a strong influence on the quality and speed the final network that lies within acceptable error limits will be reached. Based on the choice of this other factors came into consideration influencing the process, like communication between processing units and parallelism of data between them. They are not quite as influential as the first two but can lead to a strong improvement or worsening.
 
 %Takeaway
-Especially data transfer time and alike carries a potential to lengthen the training time of an significant amount. To ease this technology like GPUDirect\cite{nvidiagpudirect2017} and data prefetching\cite{yang2010gpgpu} can be used. It may be possible to decrease the effect of the data flow further by introducing a direct memory transfer unit which can indepently organize data and can handle parallel transfers to and from multiple units. This could decrease the calculation time to a bare minimum but would requires additional hardware and maybe modification of the used GPU and CPU.  Although this would break security of the system on broder range because of the unauthorized memory access and changes, it could offer a steep improvement for large calculations on distributed systems.
-
-TODO: Takeaway, different ideas, innnovative
+Especially data transfer time and alike carries a potential to lengthen the training time of an significant amount. To ease this technology like GPUDirect\cite{nvidiagpudirect2017} and data prefetching\cite{yang2010gpgpu} can be used. It may be possible to decrease the effect of the data flow further by introducing a direct memory transfer unit which can indepently organize synchronization and can handle parallel transfers to and from multiple GPUs. This could decrease the calculation time to a bare minimum but would require additional hardware and maybe modification of the used GPUs. Although this could break some security limits because of unauthorized memory accesses. 
 
 % use section* for acknowledgment
 \section*{Acknowledgment}
