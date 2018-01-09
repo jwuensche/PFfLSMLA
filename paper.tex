@@ -323,7 +323,7 @@ Email: johannes.wuensche@st.ovgu.de}
 % in the abstract
 \begin{abstract}
 
-Machine Learning is probably the most present topic of computer science in the media. This popularity only increased over the recent years thorugh widely publicly known apllications ranging from DeepBlue(not so recent) to IBM Watson and AlphaGo. Because of these successes Machine Learning is sometimes viewed as omnipotent solution to every imaginable problem. This is most certainly not the case, Neural Nets and alike are powerful but require a large amount of maintenance
+Machine Learning is probably the most present topic of computer science in general media. This popularity only increased over the recent years thorugh widely publicly known applications ranging from DeepBlue(not so recent) to IBM Watson and AlphaGo. Because of these successes Machine Learning is sometimes viewed as omnipotent solution to every imaginable problem. This is most certainly not the case, Neural Nets and alike are powerful but require a large amount of design and implementation work. We want to give a short introduction to performance influencing factorts of neural networks during training and the resulting network.
 
 \end{abstract}
 
@@ -331,12 +331,12 @@ Machine Learning is probably the most present topic of computer science in the m
 \section{Introduction}
 Machine Learning seems to be everywhere around us. With the recent success of Deep, Convolutional,and Neural Networks, and other Machine Learning tools, especially the, in general media, well reported Learners like AlphaGo, Silver or Watson, these are experiencing a kind of renaissance their usage has spread from industrial(e.g. Self-driving cars rely on autonomous interpretation of camera feed and sensor output that can be optimized by using machine learning) to retail. But also in modern automation and research, machine learning becomes a greater field managing to find more efficient ways to achieve better results in many expertise.
 
-In this paper we want to observe and identify the most performance influencing factors of theses networks while designing and implementing them for specific applications for both small and large scales.
-We expect that this study will provide help for readers interested in learning about the requirements for managing data and operations of an efficient neural network.
+In this paper we want to observe and identify the most performance influencing factors of theses networks while designing and implementing them for specific applications for both small and large scale applications.
+We expect that this study will provide help for readers interested in learning about the the initial design of neural networks, requirements for managing data, and operations of an efficient neural network.
 
 TODO: related surveys
 
- At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time.
+ At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time. We divided our survey into first the choice of neural network afterwards choice of processing units, including basic data splitting strategies for multi processing units systems, followed by challenges occuring when using large and small scale applications.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN BACKGROUND
@@ -476,7 +476,7 @@ If the task includes the classification or intepretation of incoming data over t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CHOICE OF PROCESSING UNIT
 
 
-\section{Choice of Processing Unit}
+\section{Choice of Processing Units}
 The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU and GPU-Clustering.
 \subsection{CPU}
 As the first most naive option we have a look on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
@@ -515,6 +515,10 @@ Fig. 1 visualizes this improvement showing the reduction of training time steadi
 \subsubsection{Parallelism between GPUs}
 There are two kind of parallelism approaches applicable to the problem, first there is data parallelism which splits the training data into multiple sets, mostly used when the training set is splitable into multiple subsets. This can be done by dividing the data by case or by feature. Second model parallelism in which the net is divided into separately runnable parts which later can be joined together again, this method is fitting for single system distribution in which the GPUs share one PCIe bus, but lead to the result being more vulnerable to calculation failures \cite{sastre2017scalability}.
 
+\subsubsection{Synchronization between GPUs}
+For synchronizing Multi-GPU setups like in Figure 3 there are theoretically two choices. One being the synchronous method in which after a value is calculated they are shared with every other GPU. This method is applicable to all Multi-GPU configuration and delivers an acceptable result\cite{wang2016deep}. The update of values for all GPUs occurs only after the updated values have been send by each of them. Until a large amount of over 40 GPUs are used this mehtod can be used without limitation\cite{sastre2017scalability}. 
+There is also the possibility to run the GPUs asynchronously, by letting them use different versions of the values and only updating them periodically by sending an update request to the CPU. This can lead to a slight improvement of the training speed but is not guaranteed depending on the training model\cite{wang2016deep}.
+
 
 \begin{figure}
 \centering
@@ -535,10 +539,14 @@ The next logical step is to use multiple Multi-GPU systems further reducing trai
 \label{fig_cl_gpus}
 \end{figure}
 
-
 \subsubsection{Multiple GPU-Clusters}
 Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required. Similar to multiple GPUs this leads at the beginning with 2 or more Clusters to a stronger improvement than later on with 8 to 16 Clusters as seen in (Fig. 2)
 
+\subsubsection{Parallelism of multiple GPU-Clusters}
+Like the Multi-GPU setup this can be done by creating either data or model parallelism. Combination are also possible when using GPU-Clusters, for instance in a setup consisting of multiple Clusters and one single communication server a model parallelism can be used to distribute the model on the different clusters, but they internally use data parallelism to split work\cite{wang2016deep}.
+
+\subsubsection{Synchronization of multiple GPU-Clusters}
+Similar to parallelism the synchronization of GPU-Clusters can be undertaken either with the synchronous or asynchronous like in Multi-GPU configurations. Again these tactics can be combined to create a mixed-asynchronous strategy, using an asynchronus training on inter-clusters level and cluster internal synchronous training\cite{sastre2017scalability}. This creates the best performance on large configurations with many clusters\cite{wang2016deep}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CHALLENGES
 
@@ -551,7 +559,7 @@ First and foremost it is important to notice that the biggest restrictions of sm
 
 This leads to the focus lying on the design to find the best fit of complexity to fit the desired model. Otherwise longer training time or less accuracy of the resulting network will conclude.
 
-Further small scale applications are relatively free of performance related complications, because of their relative simplicity and fast modern computer hardware enabling operations which are not optimal to be resolved in a non less desirable time
+Further small scale applications are relatively free of performance related complications, because of their relative simplicity and fast modern computer hardware enabling operations which are not optimal to be resolved in a non less desirable time.
 
 \subsection{Large scale challenges}
 Opposing to small scale applications large scale ones to not have the actual processing power as their highest pending restriction but the communication and data transfer between all acting processing units. This problem occurs because a larger data flow has to be managed to more processing units compared to small scale applications.
@@ -562,19 +570,34 @@ Opposing to small scale applications large scale ones to not have the actual pro
 \caption{One example configuration consisting of a CPU and 4 connected GPU units for training the neural network.}
 \end{figure}
 
+%%Data flow of training data
 The data flow is a problem on multiple fronts. For one the transfer of the training data from main memory to GPU memory can be the first bottleneck restricting faster processing speeds from being realized. For example if the GPU only receives data if no calculation is currently active this slows down the training process unnecessarily. To increase the speed of the calculation data can be fetched during the processing of already present data, this is called data prefetching as described and implemented by Yang 2010 \cite{yang2010gpgpu}. This solution can solve the problem partially but reaches it limits if used with multiple GPUs for example configuration (Fig. 3), which leads that the CPU will become a bottleneck if the training data of each individual GPU is too large to fit in the GPU memory, since the CPU can only manage transfer to the GPUs one at a time. For example a GPU equipped with PCI-Express 4.0 with a x16 Throughput can at best receive 31.5 GB/s, if we assume that all training data can be fit into main memory, that way if we need to refresh the complete memory of a modern GPU like NVIDIA GTX 1080, we need 0.253968 s, so to refresh all GPUs memory without including any overhead produced by switching operations between the GPUs we have an absolute transfer time of 1.015873 s, and for 3 units 0.7619 s, so if our GPU completes the desired calculation faster, for example 0.5 s, we have an 0.2619 s period in which our GPU idles every iteration, assumed that we can transfer all data during the calculation time. Therefore we have an effective calculation computation time each phase of 65.62 \%. This problem only enlargens if the main memory is to small to fit the complete training data since connections to solid state disk are too slow and hard disk do physically do not reach the required throughput.
 
-The other kind of data flow is required to synchronize the calculated neural network between the GPUs. This can be done multiple ways first 
+%%data flow synchronization
+Additional data flow is created when synchronizing GPUs with each other, by approaches described beforehand in "Choice of Processing Units", they each have their own advantage but can limit efficiency in certain situations.
 
-The next problem coming up with multiple processing units is the data flow between these, synchronizing the seperately calculated nets to reach a united model again, also have to be managed by the CPU, hence further reducing the effective calculation time of the GPUs. To ease the effect of this GPU to GPU communication technologies like GPUDirect from NVIDIA\cite{nvidiagpudirect2017} can be used allowing direct GPU to GPU communication if they are connected to the same PCIe bus, so this is only appplicable within a GPU Cluster or a single system.
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{cluster_setup.png}
+\caption{One example configuration consisting of a communication server and 4 connected GPU-Clusters each containing 4 GPUs.}
+\end{figure}
+%synchronous
+Synchronous training, while being recommend for setups that have 40 GPUs or less, can create idling time if one unit is slower than others, since all updates have to be send to the server before the next iteration can be undertaken this slows down all other units. This problem becomes more probable the more units are used. Also more GPUs lead to more communication if synchronization is required after very step, so they increase the amount of data managed by the CPU or communication server. This applies to configuration like Figure 3 and Figure 4.
+
+%asynchronous
+If an asynchronous training approach is used problems may occur influencing the result, if updates are to sporadic and different versions of values drift too far apart. To avoid this problem GPU-Cluster configurations do not rely on complete asynchronous training startegies, but on the already described mixed-asynchronous minimizing this problem while still reducing possible communication overhead.
+
+To ease the effect of GPU to GPU communication,by relieveing the CPU of managing the , technologies like GPUDirect from NVIDIA\cite{nvidiagpudirect2017} can be used allowing direct GPU to GPU communication if they are connected to the same PCIe bus, so this is only appplicable within a GPU Cluster or a single system.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CONCLUSION
 
 
 \section{Conclusion}
-yeah ... pretty much the conclusion shortly repeating the basis that is important for it and point the way they were created, should be larger part to emphasize the importance of some factors over others and the reasoning behind this classification
-\cite{shi2016benchmarking}
+During our survey we observed that the most influencing factors are the basic choice of neural network to be used, this includes its complexity as well as the actual architecture the network is build of. Further the processing unit that is chosen has a strong influence on the quality and speed the final network that lies within acceptable error limits will be reached. Based on the choice of this other factors come into consideration influencing the process like communication between processing units and parallelism of data between them. They are not quite as influential as the first two but can lead to a strong improvement or worsening.
+
+%Takeaway
+Especially data transfer time and alike carries a potential to lengthen the training time of an significant amount. To ease this technology like GPUDirect\cite{nvidiagpudirect2017} and data prefetching\cite{yang2010gpgpu} can be used. It may be possible to decrease the effect of the data flow further by introducing a memory transfer unit which can indepently organize data and can handle parallel transfers to and from multiple units. This could decrease the calculation time to a bare minimum but would requires additional hardware and maybe modification of the used GPU and CPU.  Although this would break security of the system on broder range because of the unauthorized memory access and changes, it could offer a steep improvement for large calculations on distributed systems.
 
 TODO: Takeaway, different ideas, innnovative
 

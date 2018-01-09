@@ -133,6 +133,12 @@ F.~Sastre~Cabot, ``Scalability study of deep learning algorithms in high
   performance computer infrastructures,'' Master's thesis, Universitat
   Polit{`e}cnica de Catalunya, 2017.
 
+\bibitem{wang2016deep}
+W.~Wang, G.~Chen, H.~Chen, T.~T.~A. Dinh, J.~Gao, B.~C. Ooi, K.-L. Tan,
+  S.~Wang, and M.~Zhang, ``Deep learning at scale and at ease,'' \emph{ACM
+  Transactions on Multimedia Computing, Communications, and Applications
+  (TOMM)}, vol.~12, no.~4s, p.~69, 2016.
+
 \bibitem{yang2010gpgpu}
 Y.~Yang, P.~Xiang, J.~Kong, and H.~Zhou, ``A gpgpu compiler for memory
   optimization and parallelism management,'' in \emph{ACM Sigplan Notices},
