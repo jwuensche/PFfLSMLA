@@ -308,7 +308,7 @@
 
 \title{
 %Performance Factors for Large Scale Machine Learning Applications
-A Beginners Guide to Perfomance Factors of Machine Learning Learning Applications with Focus on Neural Nets and Deep Learning
+A Beginners Guide to Perfomance Factors of Machine Learning Applications with Focus on Neural Nets and Deep Learning
 }
 
 \author{\IEEEauthorblockN{Johannes Wünsche}
@@ -594,10 +594,11 @@ To ease the effect of GPU to GPU communication,by relieveing the CPU of managing
 
 
 \section{Conclusion}
+%Summary
 During our survey we observed that the most influencing factors are the basic choice of neural network to be used, this includes its complexity as well as the actual architecture the network is build of. Further the processing unit that is chosen has a strong influence on the quality and speed the final network that lies within acceptable error limits will be reached. Based on the choice of this other factors come into consideration influencing the process like communication between processing units and parallelism of data between them. They are not quite as influential as the first two but can lead to a strong improvement or worsening.
 
 %Takeaway
-Especially data transfer time and alike carries a potential to lengthen the training time of an significant amount. To ease this technology like GPUDirect\cite{nvidiagpudirect2017} and data prefetching\cite{yang2010gpgpu} can be used. It may be possible to decrease the effect of the data flow further by introducing a memory transfer unit which can indepently organize data and can handle parallel transfers to and from multiple units. This could decrease the calculation time to a bare minimum but would requires additional hardware and maybe modification of the used GPU and CPU.  Although this would break security of the system on broder range because of the unauthorized memory access and changes, it could offer a steep improvement for large calculations on distributed systems.
+Especially data transfer time and alike carries a potential to lengthen the training time of an significant amount. To ease this technology like GPUDirect\cite{nvidiagpudirect2017} and data prefetching\cite{yang2010gpgpu} can be used. It may be possible to decrease the effect of the data flow further by introducing a direct memory transfer unit which can indepently organize data and can handle parallel transfers to and from multiple units. This could decrease the calculation time to a bare minimum but would requires additional hardware and maybe modification of the used GPU and CPU.  Although this would break security of the system on broder range because of the unauthorized memory access and changes, it could offer a steep improvement for large calculations on distributed systems.
 
 TODO: Takeaway, different ideas, innnovative
 
