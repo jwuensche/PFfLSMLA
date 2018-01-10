@@ -308,7 +308,7 @@
 
 \title{
 %Performance Factors for Large Scale Machine Learning Applications
-A Beginners Guide to Perfomance Factors of Machine Learning Applications with Focus on Neural Nets and Deep Learning
+Perfomance Factors of Deep Learning Applications: A Beginners Guide
 }
 
 \author{\IEEEauthorblockN{Johannes Wünsche}
@@ -318,7 +318,7 @@ johannes.wuensche@st.ovgu.de}
 
 % make the title area
 \maketitle
-
+2
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
@@ -336,7 +336,7 @@ We expect that this study will provide help for readers interested in learning a
 
 TODO: related surveys
 
- At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time. We divided our survey into first the choice of neural network afterwards choice of processing units, including basic data splitting strategies for multi processing units systems, followed by challenges occuring when using large and small scale applications.
+ At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and a low query frequency after the initial training, and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time. We divided our survey into first the choice of neural network afterwards choice of processing units, including basic data splitting strategies for multi processing units systems, followed by challenges occuring while using large and small scale applications.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN BACKGROUND
@@ -357,6 +357,7 @@ On the other hand as a large scale neural network applications we define a netwo
 
 %%%%BEGIN DESCRIPTION NETWORKS USED LATER
 
+%simple
 Most commonly used Neural Networks of the more classic single or non hidden layer kind are Feed Forward, Auto Encoders and Restricted Boltzmann Machines, which all have only a simple layer of hidden nodes and therefore are quite restricted in what they can compute based on the input data. 
 
 Feed Forward Networks(FFN) simply connects input, hidden and output layers with an all to all connection between the layers with the number of outputs being equal or smaller to the number of hidden nodes.
@@ -365,6 +366,7 @@ Auto Encoders(AE) are of an similar build but the hidden layer compresses the in
 
 Restricted Boltzmann Machines(RBM) only have an input and an output layer with an all to all connection between these. This RBM has in comparison to the normal Boltzmann Machine a better training behaviour which leads to a faster trained network.
 
+%deep
 A more advanced architecture is to increase the number of hidden layers to enlarge the application possibility of these networks for more complex models these are then called Deep Networks. The most commonly used ones are Variational Auto Encoders , Deep Belief Networks, Generative Adversial Networks, Recurrent Neural Networks ,e.g. Long short-term memory networks, Deep Convolutional Neural Networks, Deconvolutional Networks, and Recursive Neural Networks.
 
 Variational Auto Encoders(VAE) consists of a encoder, sampler and decoder and are able to to generate output based on specification given to the VAE. 
@@ -400,12 +402,7 @@ Additionally the synchronization can be somewhat difficult and extensive for lar
 
 %%%%END INFORMATION DATA FLOW
 
-%%%%BEGIN INFORMATION ACTUAL USED IMPLEMENTATIONS
 
-The most common neural network frameworks which we, because of their wide popularity, will mostly view are Tensorflow\cite{abadi2016tensorflow}, Caffe\cite{jia2014caffe}, Torch\cite{collobert2002torch}, CNTK\cite{gitcntk}, deeplearning4j\cite{websitedl4j}, Keras\cite{websitekeras}, MXNET\cite{websitemxnet}. These frameworks have been benchmarked in numerous settings and applications and can help us show performance influencing factors.
-
-%TODO some more detailed stuff about it
-%%%%END INFORMATION ACUTAL USED IMPLEMENTATIONS
 
 %%%%BEGIN PROCESSING UNIT
 
@@ -413,10 +410,17 @@ The next major performance influencing factor will be the choice of the actual p
 
 %%%%END PROCESSIONG UNIT
 
+%%%%BEGIN INFORMATION ACTUAL USED IMPLEMENTATIONS
+
+The most common neural network frameworks which we, because of their wide popularity, will mostly view are Tensorflow\cite{abadi2016tensorflow}, Caffe\cite{jia2014caffe}, Torch\cite{collobert2002torch}, CNTK\cite{gitcntk}, deeplearning4j\cite{websitedl4j}, Keras\cite{websitekeras}, MXNET\cite{websitemxnet}. These frameworks have been benchmarked in numerous settings and applications and can help us show performance influencing factors.
+
+%TODO some more detailed stuff about it
+%%%%END INFORMATION ACUTAL USED IMPLEMENTATIONS
+
 
 %%%%BEGIN RELATED WORK
 
-The topic of performance of neural networks and influencing factors has been touched by many benchmarking survey like \cite{shi2016benchmarking} and \cite{qi2016paleo}.	 But we hope to offer a collected view on the most influencing factors in a more abstract style.
+The topic of performance of neural networks and influencing factors has been touched by many benchmarking survey like in "Benchmarking state-of-the-art deep learning software tools" \cite{shi2016benchmarking} and "Paleo: A performance model for deep neural networks" \cite{qi2016paleo}.	 But we hope to offer a collected view on the most influencing factors in a more abstract style.
 
 %%%%END RELATED WORK
 
@@ -463,10 +467,13 @@ Like in simple networks the amount of nodes to be used is an important value tha
 \subsection{Specific deep networks}
 Based on the content of the task a few networks can be more fitting than others to fulfill it. To deliver a shot overview of it we use a classification by Patterson\cite{PattersonGibson17} for the basis of our advise.
 
+%generation
 If the task includes the generation of data to be output a GAN, VAE or RNN/LSTM. Which of these to choose is strongly dependent of the specific parameters of the task. For example if we want to generate random new data following the model of our training data the closest to this would be a GAN because it is by design designated to fulfill such tasks. But if new data which is not completely random is to be generated a VAE can be considered which offers by design this possibility. In practice there are lots of generation examples available using these networks for example image generation with GAN\cite{junyanz2017} (corresponding paper \cite{zhu2016generative}) or text generation with LSTM\cite{gittesttensorflow} (paper describing base approach\cite{sutskever2011generating}).
 
-If the task includes classification or interpretation of visual data neural networks like CNN or DBN can be used. For once CNN are a straightforward choice since they are able to compress data and therefore abstract smaller data like the content of an image from the original image. But DBN offer also an possibility to complete the task with the major adavantage of being able to first roughly guess values from the training data and then train unsupervised in the fine-tuning phase as shown by Zhong 2016\cite{zhong2016diversified}.
+%classification
+If the task includes classification or interpretation of visual data deep neural networks, like CNN or DBN, can be used. For once CNNs are a straightforward choice since they are able to compress data and therefore abstract smaller data like the content of an image from the original image. But DBN also offer a possibility to complete the task with the major advantage of being able to first roughly guess values based on the training data and then train unsupervised in the fine-tuning phase as shown by Zhong 2016\cite{zhong2016diversified}.
 
+%sequential data
 If the task includes the classification or intepretation of incoming data over time the ability of RNN and LSTMs to data that is of sequential nature comes in handy. For example voice recognition is possible to implement with the help of LSTMs as shown by Soltau 2016\cite{soltau2016neural}.
 %%%%END SPECIFIC NETS
 
@@ -478,12 +485,19 @@ If the task includes the classification or intepretation of incoming data over t
 
 \section{Choice of Processing Units}
 The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU, Multi-GPU and GPU-Clustering.
+
+
 \subsection{CPU}
 As the first most naive option we have a look on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
+
+
 \subsubsection{Single-thread}
 The most naive implementation is the single-thread CPU calculation, because oft this more  brute force approach and sequential execution and calculation this is also the slowest and with a larger number of connected nodes simply unfeasible because of the excessive calculation time required . But as can be thought of this does not uitilize the full capacity of the CPU and therefore results in performance loss in comparison to multithread usage(Table I).
+
+
 \subsubsection{Multi-thread}
 A more complex approach consist of utilizing the multi-core characterisitics of modern CPUs, by splitting of training calculation with only requirements to already calculated values. This is for example preferrable when training with the help of a \emph{Backpropagation} algorithm. The effect  continues to grow by using more threads but reaches it limits when using more threads than physical cores available.
+
 \begin{table} 
 \centering
 \begin{tabular}{c c c c c}
@@ -496,20 +510,28 @@ Torch & 1.329 & 0.710 & 0.423 & na \\\hline
 \caption{Training time(in s) for a mini-batch of size 64 of a Fully Connected Network(FCN) trained with synthetic data on a i7-3820 with 4-physical cores using 3 different commonly used Deep Learning frameworks\cite{shi2016benchmarking}}
 \label{fig_ttfcn}
 \end{table}
+
+%limit
 Though this approach is limited by the actual core number available and should not overstep the number of physical cores, like with intel \emph{hyper-threading} technology, which can lengthen the required calculation time because of a more inefficient usage\cite{shi2016benchmarking}.
+
+
 \subsection{GPU}
 A more advanced implementation is to use the shared memory, multi-core environment of modern GPUs. For example with the help of  NVIDIAs CUDA this can be done efficiently and result in a speed-up of calculation of up to 3 times the CPU-based approachs performance for deep learning algorithms over optimized floting-point baseline\cite{shi2016benchmarking}. Almost all recent neural net learning frameworks support GPUs because of its excellent performance rating for neural networks.
 
+%restrictions
 Problems lie in the tightly restricted memory of graphic cards that may not be able to contain all nodes with their corresponding weights as well as training dataset. This leads to some communication overhead depending on the communication strategy chosen.
 
 
 \subsection{Multi-GPU}
 To further improve performance during training multiple GPUs can be used to train the neural net. This shortens training time but also requires new actions like synchronizations of GPUs and splitting of data and/or neural network.
 
+%speedup numbers
 A main advantage of Multi-GPU is of course the increased computation power available during the training phase, reducing training time by 35\% when doubling the number of GPUs in CNTK and MXNET, 28 \% in Caffe and 10 \% in  Torch and Tensorflow\cite{shi2016benchmarking}.
 
+%memory
 Another advantage is the greater availability of memory somewhat easing the restrictions of the memory restricted GPUs structure. While this is an advantage it is not efficient if used as the single goal of multiple GPU usage because of the high price connected to acquiring them.
 
+%speedup figure
 Fig. 1 visualizes this improvement showing the reduction of training time steadily with the increasing of amount of GPUs used. Although costly this leads to a constant improvement. Higher Numbers of GPUs can be again slower or offer no significant improvement if used the same as smaller amounts because of an increasing communication overhead and bottleneck in the CPU, which is responsible for managing seperate GPUs.
 
 \subsubsection{Parallelism between GPUs}
@@ -557,8 +579,10 @@ Dependent on the choice of scale each one has its own challenges to be considere
 \subsection{Small scale challenges}
 First and foremost it is important to notice that the biggest restrictions of small scale applications is the limited computation power available during the initial training process, later during usage of the net this is less impeding because either the net is completely pretrained and not changed later or the only change is some optimization when the network receives a query.
 
+%model choice
 This leads to the focus lying on the design to find the best fit of complexity to fit the desired model. Otherwise longer training time or less accuracy of the resulting network will conclude.
 
+%rest trivial
 Further small scale applications are relatively free of performance related complications, because of their relative simplicity and fast modern computer hardware enabling operations which are not optimal to be resolved in a non less desirable time.
 
 \subsection{Large scale challenges}
