@@ -477,7 +477,7 @@ If the task includes the classification or intepretation of incoming data over t
 
 
 \section{Choice of Processing Units}
-The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU and GPU-Clustering.
+The next important choice is the choice of the actual operating calculation unit. We distinguish them into three main models, CPU, GPU, Multi-GPU and GPU-Clustering.
 \subsection{CPU}
 As the first most naive option we have a look on the CPU for training of the neural net with the simple single thread and more complex multi-thread calculation.
 \subsubsection{Single-thread}
@@ -589,13 +589,19 @@ If an asynchronous training approach is used problems may occur influencing the 
 
 To ease the effect of GPU to GPU communication,by relieveing the CPU of managing them, technologies like GPUDirect from NVIDIA\cite{nvidiagpudirect2017} can be used allowing direct GPU to GPU communication if they are connected to the same PCIe bus, so this is only appplicable within a GPU Cluster or a single system and does not remove all communication overhead. Also shared memory between GPUs can come in place saving synchronization between them.
 
+%memory limitation
+Another issue appears while training if the training data is too large to fit in memory. Then time expensive disk accesses to either very slow HDDs or faster but still relatively slow SSDs are required. For example a fast available SSD SAMSUNG 960 PRO can reach up to 3.5 GB/s which is still relatively slow compared to the maximum 31.5 GB/s possible through an PCIe x16 interface. To further increase speed a RAID 0 setup can be created consisting of multiple M.2 SSDs with the potential of parallel access and data transfer reaching for instance with 5 960 PRO that could transfer at maximum of around 17 GB/s.
+
+%bandwith between clusters
+This data transfer becomes only more and more concerning if multiple GPU-Cluster are used, because the connection between them may slower than the interfaces of RAM, GPU and storage used therefore creating a new bottleneck. This problem can be reduce if training data is stored by the cluster, which has the downside of further increasing the cost of these setups.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CONCLUSION
 
 
 \section{Conclusion}
 %Summary
-During our survey we observed that the most influencing factors are the basic choice of neural network to be used, this includes its complexity as well as the actual architecture the network is build of. Further the processing unit that is chosen has a strong influence on the quality and speed the final network that lies within acceptable error limits will be reached. Based on the choice of this other factors came into consideration influencing the process, like communication between processing units and parallelism of data between them. They are not quite as influential as the first two but can lead to a strong improvement or worsening.
+During our survey we observed that the most influencing factors are the basic choice of neural network to be used, this includes its complexity as well as the actual architecture the network is build of. Further the processing unit that is chosen has a strong influence on the quality and speed the final network that lies within acceptable error limits will be reached. Based on the choice of this other factors came into consideration influencing the process, like communication between processing units and parallelism of data between them. They are not quite as influential as the first two but can lead to a strong improvement or worsening. We observed that even in example systems that handle communication efficiently about 35 \% of the calculation time is sacrificed to it.
 
 %Takeaway
 Especially data transfer time and alike carries a potential to lengthen the training time of an significant amount. To ease this technology like GPUDirect\cite{nvidiagpudirect2017} and data prefetching\cite{yang2010gpgpu} can be used. It may be possible to decrease the effect of the data flow further by introducing a direct memory transfer unit which can indepently organize synchronization and can handle parallel transfers to and from multiple GPUs. This could decrease the calculation time to a bare minimum but would require additional hardware and maybe modification of the used GPUs. Although this could break some security limits because of unauthorized memory accesses. 
