@@ -56,25 +56,37 @@ johannes.wuensche@st.ovgu.de}
 % in the abstract
 \begin{abstract}
 
-Machine Learning is probably the most present topic of computer science in general media. This popularity only increased over the recent years thorugh widely publicly known applications ranging from DeepBlue(not so recent) to IBM Watson and AlphaGo. Because of these successes Machine Learning is sometimes viewed as omnipotent solution to every imaginable problem. This is most certainly not the case, Neural Nets and alike are powerful but require a large amount of design and implementation work. We want to give a short introduction to performance influencing factorts of neural networks during training and the resulting network.
+Machine Learning is probably the most present topic of computer science in general media. This popularity only increased over the recent years thorugh widely publicly known applications ranging from DeepBlue to IBM Watson and AlphaGo. Because of these successes Machine Learning is sometimes viewed as an omnipotent solution to every imaginable problem. This is most certainly not the case, based on our studies we can conclude that their capabilities depend on done design and engineering work. In this paper we want to give an short introduction into the most performance influencing factors to performance, during the most time intensive phase, the training.
 
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
 \section{Introduction}
-Machine Learning seems to be everywhere around us. With the recent success of Neural Networks, and other Machine Learning tools, especially the, in general media, well reported learners like AlphaGo, Silver or IBM Watson, these are experiencing a kind of renaissance their usage has spread from industrial(e.g. Self-driving cars rely on autonomous interpretation of camera feed and sensor output that can be optimized by using machine learning) to retail. But also in modern automation and research, machine learning becomes a greater field managing to find more efficient ways to achieve better results in many expertise.
+Machine Learning seems to be everywhere around us. With the recent success of Neural Networks, and other Machine Learning tools, especially  in general media well reported learners like AlphaGo or IBM Watson, these technologies are experiencing a kind of renaissance. Their usage has spread from industrial(e.g. self-driving cars, which rely on autonomous interpretation of camera feed and sensor output using machine learning) to retail. Also in modern automation and research, machine learning becomes a greater tool for managing to find more efficient ways to achieve better results in many cases.
 
-In this paper we want to observe and identify the most performance influencing factors of theses networks while designing and implementing them for specific applications for both small and large scale applications.
+In this paper we want to observe and identify the most performance influencing factors of these networks while designing and implementing them for specific applications, with both small and large scale deployments.
 We expect that this study will provide help for readers interested in learning about the the initial design of neural networks, requirements for managing data, and operations of an efficient neural network.
 
-TODO: related surveys
+During our study we found no comprehensive study touching this thema not being based on the comparison of frameworks or on an experimental execution on different platforms or frameworks. This paper is based on these publications.
 
- At first we attend the choice of neural network and the impact of this decision. Afterwards we chose to have a look, on one hand, at small scale neural networks running on a single machine without large data sets and at the other hand, large scale neural networks operating with more layers and nodes, large data sets and distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time. We divided our survey into first the choice of neural network afterwards choice of processing units, including basic data distribution strategies for multi processing units systems, followed by challenges occuring while using large and small scale applications.
+ At first we attend to the choice of neural network and the impact of this decision. Afterwards we have a look, on one hand, at small scale neural networks running on a single machine without large data sets and on the other hand, large scale neural networks operating with more layers and nodes, large data sets and a distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time. We divide our survey into, the choice of neural network, the choice of processing units, including basic data distribution strategies for multi-processing, a discussion of the challenges in running small and large scales.
 
+
+%%%%BEGIN RELATED WORK
+
+The topic of considering the performance of neural networks and the influencing factors, has been covered in many studies like
+ in "Benchmarking state-of-the-art deep learning software tools" \cite{shi2016benchmarking} and "Paleo: A performance model for deep neural networks" \cite{qi2016paleo}. In our study we hope to offer a collected view, which could serve as an entry point for developers seeking to work with these tools.
+%%%%END RELATED WORK
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN BACKGROUND
 
 \section{Background and Related Work}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{neuralnetworks.png}
+\caption{"A mostly complete chart of Neural Networks" by "The Asimov Institute" extract of only in this paper referenced networks\cite{zoo}}
+\end{figure}
 
 \begin{figure}
 \centering
@@ -84,91 +96,88 @@ TODO: related surveys
 
 %%%%BEGIN DEEP LEARNING
 
-The term "Deep Learning" itself is just a rebranding of the since the 80s existing concept of multilayered perceptrons. Its basic idea is to simply use more than 1 layer in a neural network to increase the accuracy of the learned model. A good defintion of Deep Learning is delivered by Deng in his 2014 book "Deep learning: methods and applications"\cite{deng2014deep}: "A class of machine learning techniques that exploit many layers of non-linear information processing for supervised or unsupervised feature extraction and transformation, and for pattern analysis and classification".
+In this section we introduce some commonly used models, we consider some performance factors and we refer readers to related work in evaluating performance factors of these models. For this we begin by showing some of the history of Deep Learning followed by clarification of the distinction between what we define as small and large scale networks.
+
+The term "Deep Learning" itself is just a rebranding of the since the 80s existing concept of multilayered perceptrons. Its basic idea is to simply use more than 1 layer in a neural network to increase the accuracy of the learned model\cite{deeplearning101}. A good defintion of Deep Learning is delivered by Deng in his 2014 book "Deep learning: methods and applications"\cite{deng2014deep}: "A class of machine learning techniques that exploit many layers of non-linear information processing for supervised or unsupervised feature extraction and transformation, and for pattern analysis and classification". Additionally to the reuse of multilayer perceptrons the ideas of Deep Belief Networks and unsupervised pretraining have been introduced.
 
 Since then Deep Learning has experienced an almost exponential growth in popularity as seen in Figure 1, where the popularity steeply increases around 2014.
 %%%%END DEEP LEARNING
 
 %%%%BEGIN SMALL SCALE NEURAL NET DESCRIPTION
 
-As a small scale neural network applications we define a network with few neural nodes inside the network and because of this rather limited size it is most of the time run on a single machine and or single processing unit which can complete the training process of the net in a reasonable time.
+As a small scale neural network applications we define a network with few and because of this rather limited size it. Most of the time such a network is run on a single machine.
 
 %%%%END SMALL SCALE NEURAL NET DESCRIPTION
 
 %%%%BEGIN LARGE SCALE NEURAL NET DESCRIPTION
 
-On the other hand as a large scale neural network applications we define a network with a large number of nodes which can because of the complexity of the resulting connections take a large amount of time to complete training if computed on one processing unit and therefore will take use of a distributed system consisting of multiple units in a single system or more servers to synchronize multiple systems of processing units and distribute the required data.
-
+On the other hand as a large scale neural network applications we define a network with a large number of nodes which can, because of the complexity of the resulting connections take a large amount of time to complete training if computed on one processing unit. Therefore it requires a system capable of running the training parallel in a single processing unit, a system containing multiple processors in one node, or a multinode system. Or in other words a system capable of parallelization, since this is of highest concern in large scale networks.
 %%%%END  LARGE SCALE NEURAL NET DESCRIPTION
 
 %%%%BEGIN DESCRIPTION NETWORKS USED LATER
 
 %simple
-Most commonly used shallow Neural Networks are Feed Forward, Auto Encoders and Restricted Boltzmann Machines, which all have only a single layer of hidden nodes and therefore are quite restricted in what they can compute based on the input data. 
+The most commonly used shallow Neural Networks are Feed Forward, Auto Encoders and Restricted Boltzmann Machines, which all have only a single layer of hidden nodes and therefore are quite restricted in what they can compute based on the input data. 
 
 Feed Forward Networks(FFN) simply connects input, hidden and output layers with an all to all connection between the layers with the number of outputs being equal or smaller to the number of hidden nodes.
 
-Auto Encoders(AE) are of an similar build but the hidden layer compresses the input information into fewer nodes while these are later again decompressed to output nodes that match the previously given input nodes.
+Auto Encoders(AE) are of an similar build but the hidden layer compresses the input information into fewer nodes while these are later again decompressed to output nodes that match the previously given input nodes, therefore AE can be classified as a generative network.
 
 Restricted Boltzmann Machines(RBM) only have an input and an output layer with an all to all connection between these. This RBM has in comparison to the normal Boltzmann Machine a better training behaviour which leads to a faster trained network.
 
 %deep
-A more advanced architecture is to increase the number of hidden layers to enlarge the application possibility of these networks for more complex models these are then called Deep Networks. The most commonly used ones are Variational Auto Encoders , Deep Belief Networks, Generative Adversial Networks, Recurrent Neural Networks ,e.g. Long short-term memory networks, Deep Convolutional Neural Networks, Deconvolutional Networks, and Recursive Neural Networks.
+A more advanced architecture is to increase the number of hidden layers to enlarge the application possibility of these networks for more complex models these are then called Deep Networks. The more commonly used ones are Variational Auto Encoders , Deep Belief Networks, Generative Adversial Networks, Recurrent Neural Networks ,e.g. Long short-term memory networks, Deep Convolutional Neural Networks, Deconvolutional Networks, and Recursive Neural Networks.
 
-Variational Auto Encoders(VAE) consists of a encoder, sampler and decoder and are able to to generate output based on specification given to the VAE. 
+Variational Auto Encoders(VAE) consists of an encoder, sampler and decoder and are able to to generate output based on specification given to the VAE. 
 
 Deep Belief Networks(DBN) are a combination of RBM and FFN in which the RBM are used to pretrain the network with the initial training 
-data and the FFN to adjust the learned values slightly to improve the result. 
+data and the FFN to adjust the learned values slightly to improve the result. The pretraining is done in an unsupervised manner enabling the network to learn structural features of the input in each layer. These networks are at the core of the renaissance of neural networks, stemming from the work of Hinton 2006\cite{hinton2006fast}.
 
-Generative Adversial Networks(GAN) like the VAE creates random output based on the model found in the given training data. VAE are a specialization of GAN because of the restrictions that can be set for the output which is not possible in a GAN.
+Generative Adversial Networks(GAN) like the VAE create random output based on the model found in the given training data. VAE are a specialization of GAN because of the restrictions that can be set for the output which is not possible in a GAN.
 
-Deep Convolutional Networks(DCN) are based on Convolutional Nodes compressing the incoming information into the needed base model and then calculate the required output.\cite{PattersonGibson17} They are used to abstract input information into more general models.
+Deep Convolutional Networks(DCN) are based on Convolutional Nodes compressing the incoming information into the needed base model and then calculating the required output.\cite{PattersonGibson17} They are used to abstract input information into more general models. These networks especially are being used to process images.
 
 Deconvolutional Networks(DN)\cite{zeiler2014visualizing} are less surprisingly the opposite of DCN in the idea that input information is first spread to a larger amount of nodes and then processed by the following Nodes to be used by the output.
 
-Long short-term memory(LSTM)\cite{hochreiter1997long} are a variant of Recurrent Neural Networks(RNN) including additionally memory cells and gates that control the content of the cells. This model has been able to improve learning process of RNN and results.
+Long short-term memory(LSTM)\cite{hochreiter1997long} are a variant of Recurrent Neural Networks(RNN) including additionally memory cells and gates that control the content of the cells, that are able to remember patterns in sequential data. This model has been able to improve learning process of RNN and results.
 
 %%%%END DESCRIPTION NETWORKS USED LATER
 
 %%%%BEGIN TRAINING ALGORITHMS
 %%THE POSITION OF THIS CAN BE CHANGED
-The reason why the training of neural networks is so expensive can be traced back to the algorithm used to train all commonly used networks, which is backpropagation. Backpropagation is based on the idea that we calculate the deviation of the output values from the actual result and then use this backwards thorugh the layers of the net to calculate a correction,based on the error of the node and the learning rate, for each connection weight until the input layer is reached\cite{riedmiller1993direct}. Some Networks like DBN use a slightly 
-diverged "Gentle" Backpropagation, which uses a lowered learning rate after the initial values have been found from the training data with the help of the pretrain RBM \cite{PattersonGibson17}.
+The reason why the training of neural networks is so expensive can be traced back to the algorithm used to train all commonly used networks, which is backpropagation. Backpropagation is based on the idea that we first calculate the deviation of the output values from the actual result and then use this backwards thorugh the layers of the net to calculate a correction,based on the error of the node and the learning rate, for each connection weight until the input layer is reached\cite{riedmiller1993direct}. Some Networks like DBN use a slightly 
+diverged "Gentle" Backpropagation, which relies on a learning rate after the initial values have been found from the training data with the help of the pretrained RBM \cite{PattersonGibson17}.
 %%%%END TRAINING ALGORITHMS
 
 %%%%BEGIN INFORMATION DATA FLOW
 
-Another performance influencing factor besides the actual neural net and the used learning algorithm is the amount of data required for the net to be trained and the size of the input of each training example.While this is mostly important for large scale applications it can also be hindering for smaller ones. For example if we use a Convolutional Neural Network to classify the content of a greyscale picture we get for small $512*512$ sized images $262144$ inputs that each need to be transferred to the processing unit, CPU or GPU, for each example.
+Another performance influencing factor besides the actual neural net and the learning algorithm, is the amount of data required for the net to be trained and the size of each training example.While this is mostly important for large scale applications, it can also be hindering for smaller ones. For example if we use a Convolutional Neural Network to classify the content of a greyscale picture we get for small $512*512$ sized images $262144$ inputs that each need to be transferred to the processing unit, CPU or GPU, for each example.
 
-This large amount of data can for one take some time to be transferred, if for example this data package is required by an external processing unit like a GPU other units can not  receive new data and therefore lose performance due to them being idle. Also if too much data is needed in relation to the actual output the data storage can achieve enduring performance loss will occur.  
+This large amount of data can, for one, take some time to be transferred, if for example this data package is required by an external processing unit like a GPU other units cannot receive new data and therefore the performance drops due to them being idle. Also if too much data is needed in relation to the actual output the data storage can achieve enduring performance loss will occur.  
 
 Further can the required training data exceed direct accessible memory from the processing unit, enhancing the problem of delivering data to all processing units.
 
-Additionally the synchronization can be somewhat difficult and extensive for large neural networks on multiple processing units because of the interchange of new weights calculated between them after a certain number of iterations on their training cases.
+Furthermore if the training data exceeds the memory for the processing unit, the problem of delivering data to all units becomes more pressing.
 
 %%%%END INFORMATION DATA FLOW
 
-
-
 %%%%BEGIN PROCESSING UNIT
 
-The next major performance influencing factor will be the choice of the actual processing unit. This decision is the most computation time influencing and can also influence the quality of the result. We divide our processing unit into three groups starting with the CPU,which have a greater memory capability because they can be equipped with additional RAM sticks but posses a smaller virtualization limit than GPUs because of their differentiating architecture, then the GPU,with a much larger architectural focus on multithreading than CPUs, and following GPU Clusters,being simply a seperate unit consisting of multiple GPUs, like they are used in supercomputers.
+The next major performance influencing factor will be the choice of the actual processing unit. This decision is the most computation time influencing. This decision can have the biggest influence on computation time. We divide our processing unit into three groups starting with the CPU,which have a greater memory capability because they can be equipped with additional RAM sticks but possess a smaller parallelization limitation than GPUs because of their different architecture, then the GPU,with a much larger architectural focus on multithreading than CPUs, and following GPU Clusters, being simply a group of GPUs either in a single node or spanning multiple nodes, like they are used in supercomputers.
 
 %%%%END PROCESSIONG UNIT
 
 %%%%BEGIN INFORMATION ACTUAL USED IMPLEMENTATIONS
 
-The most common neural network frameworks which we, because of their wide popularity, will mostly view are Tensorflow\cite{abadi2016tensorflow}, Caffe\cite{jia2014caffe}, Torch\cite{collobert2002torch}, CNTK\cite{gitcntk}, deeplearning4j\cite{websitedl4j}, Keras\cite{websitekeras}, MXNET\cite{websitemxnet}. These frameworks have been benchmarked in numerous settings and applications and can help us show performance influencing factors.
+The most common neural network frameworks which we, because of their wide popularity, have found in performance studies are Tensorflow\cite{abadi2016tensorflow}, Caffe\cite{jia2014caffe}, Torch\cite{collobert2002torch}, CNTK\cite{gitcntk}, deeplearning4j\cite{websitedl4j}, Keras\cite{websitekeras}, and MXNET\cite{websitemxnet}.
+
+% These frameworks have been benchmarked in numerous settings and applications and can help us show performance influencing factors.
 
 %TODO some more detailed stuff about it
 %%%%END INFORMATION ACUTAL USED IMPLEMENTATIONS
 
 
-%%%%BEGIN RELATED WORK
 
-The topic of performance of neural networks and influencing factors has been touched by many benchmarking survey like in "Benchmarking state-of-the-art deep learning software tools" \cite{shi2016benchmarking} and "Paleo: A performance model for deep neural networks" \cite{qi2016paleo}.	 But we hope to offer a collected view on the most influencing factors in a more abstract style.
-
-%%%%END RELATED WORK
 
 %Transition
 Next will follow the choice of neural network and its influence on performance.
@@ -179,18 +188,20 @@ Next will follow the choice of neural network and its influence on performance.
 \section{Performance impacting choices}	
 
 %%%%BEGIN IMPORTANCE
-The first important choice is to what neural network is going to be used. This decision is heaviliy reliant on the application that is to be implemented. This decision influences all further actions and has to be carefully made, to assist this decision we will offer some generalization when to use shallow neural networks or deep neural network and what specializations of certain neural networks are giving them advantage while doing specific tasks.
+The first important choice is to what neural network is going to be used. This decision is heaviliy reliant on the application that is to be implemented. Such decision influences all further actions and has to be carefully made.
+
+To assist this decision we offer some general guidelines for when to use shallow vs. deep networks, and what specializations of certain networks could be advantageous for specific tasks.
 %%%%END IMPORTANCE
 
 %%%%BEGIN ADVANTAGES DISADVANTAGES SIMPLE AND DEEP
 \subsection{Choice of Neural Network}
 \subsubsection{Shallow Networks}
-Simple task can be done by a network which is not deep like a FFN or a RBM. They are faster to train and even larger training sets can be completed in a reasonable time without multithreading or usage of GPUs. But there small size can lead that accuracy decreses when the model becomes more difficult than anticipated. Small scale applications often incur that a shallow neural network is used because of the smaller training set and shorter computation time.
+Simple task can be done by a network which is not deep, like a FFN or a RBM. They are faster to train and even larger training sets can be completed in a reasonable time without multithreading or usage of GPUs. But their limited depth can decrease the accuracy of the model when the learned task is more complex than expected. In other words, these models have a risk to overfit the training data. Accordingly, to use them, careful validation is required. 
 
 \subsubsection{Deep Networks}
-More complex tasks more often require a deep neural network that can learn a more complex model than shallow networks and offer a greater accuracy while doing this. The major downside of these networks that they require a larger amount of time to train and can be oversized for the actual to be represented model, and therefore adding unnecessary computation time. Large scale applications mostly contain deep networks because of their larger training sets and more complex models underlying the actual task.
+More complex tasks often require a deep neural network that can learn a more complex model than shallow networks and offer a greater accuracy while doing this. The major downside of these networks is that they require a larger amount of time to train and can be oversized for the actual learning task and might adding unnecessary computation time. Large scale applications mostly contain deep networks because of their larger training sets and more complex models underlying the actual task.
 
-We can not offer a clear answer when to use which kind of network, every problem must be individually analyzed and based on the information, and complexity, as well as the acceptable error rate of the final network the decision has to be made. For cases that are unclear a shallow network can first be constructed,because of their short training time, and if the result is unsatisfying a more complex network can be considered.  Also it is advisable to use a deep network if the data is either of image or audio nature and/or needs to include changes over time of an input signal\cite{PattersonGibson17}.
+We can not offer a clear answer about when to use which kind of network, every problem must be individually analyzed and based on the information, and complexity, as well as the acceptable error rate of the final network the decision has to be made. For cases that are unclear a shallow network can first be constructed,because of their short training time, and if the result is unsatisfying a more complex network can be considered.  Also it is advisable to use a deep network if the learning task involves image or audio understanding, or the task needs to include recurring changes over time of an input signal\cite{PattersonGibson17}.
 %%%%END ADVANTAGES DISADVANTAGES SIMPLE AND DEEP
 
 %%%%INTITAL VALUES
@@ -226,6 +237,7 @@ If the task includes classification or interpretation of visual data deep neural
 If the task includes the classification or intepretation of incoming data over time the ability of RNN and LSTMs to data that is of sequential nature comes in handy. For example voice recognition is possible to implement with the help of LSTMs as shown by Soltau 2016\cite{soltau2016neural}.
 %%%%END SPECIFIC NETS
 
+Finally, if the task has been covered in the literature, it is worthwhile to use existing publically available networks like AlexNet, GoogleNet and others.
 
 %Transition
 To further optimize training time we will next touch the topic of processing units which can be used.

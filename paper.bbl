@@ -21,10 +21,27 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{zoo}
+\BIBentryALTinterwordspacing
+F.~v. Veen, ``The neural network zoo,'' Nov 2017. [Online]. Available:
+  \url{http://www.asimovinstitute.org/neural-network-zoo/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{deeplearning101}
+\BIBentryALTinterwordspacing
+Feb 2017. [Online]. Available:
+  \url{https://beamandrew.github.io/deeplearning/2017/02/23/deep\_learning\_101\_part1.html}
+\BIBentrySTDinterwordspacing
+
 \bibitem{deng2014deep}
 L.~Deng, D.~Yu \emph{et~al.}, ``Deep learning: methods and applications,''
   \emph{Foundations and Trends{\textregistered} in Signal Processing}, vol.~7,
   no. 3--4, pp. 197--387, 2014.
+
+\bibitem{hinton2006fast}
+G.~E. Hinton, S.~Osindero, and Y.-W. Teh, ``A fast learning algorithm for deep
+  belief nets,'' \emph{Neural computation}, vol.~18, no.~7, pp. 1527--1554,
+  2006.
 
 \bibitem{PattersonGibson17}
 \BIBentryALTinterwordspacing
