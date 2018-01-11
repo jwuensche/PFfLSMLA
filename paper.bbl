@@ -21,6 +21,11 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{deng2014deep}
+L.~Deng, D.~Yu \emph{et~al.}, ``Deep learning: methods and applications,''
+  \emph{Foundations and Trends{\textregistered} in Signal Processing}, vol.~7,
+  no. 3--4, pp. 197--387, 2014.
+
 \bibitem{PattersonGibson17}
 \BIBentryALTinterwordspacing
 J.~Patterson and A.~Gibson, \emph{Deep Learning: A Practitioner's

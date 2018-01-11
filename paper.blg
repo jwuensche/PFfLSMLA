@@ -14,45 +14,45 @@ Database file #1: paper.bib
 Warning--empty journal in qi2016paleo
 
 Done.
-You've used 23 entries,
+You've used 24 entries,
             4087 wiz_defined-function locations,
-            944 strings with 11225 characters,
-and the built_in function-call counts, 14148 in all, are:
-= -- 1092
-> -- 348
-< -- 81
-+ -- 186
-- -- 66
-* -- 635
-:= -- 2182
-add.period$ -- 53
-call.type$ -- 23
-change.case$ -- 29
-chr.to.int$ -- 198
-cite$ -- 24
-duplicate$ -- 1050
-empty$ -- 1214
-format.name$ -- 81
-if$ -- 3264
+            951 strings with 11400 characters,
+and the built_in function-call counts, 15083 in all, are:
+= -- 1174
+> -- 368
+< -- 92
++ -- 198
+- -- 69
+* -- 681
+:= -- 2321
+add.period$ -- 55
+call.type$ -- 24
+change.case$ -- 30
+chr.to.int$ -- 222
+cite$ -- 25
+duplicate$ -- 1115
+empty$ -- 1278
+format.name$ -- 85
+if$ -- 3482
 int.to.chr$ -- 0
-int.to.str$ -- 23
-missing$ -- 211
-newline$ -- 108
-num.names$ -- 19
-pop$ -- 560
+int.to.str$ -- 24
+missing$ -- 221
+newline$ -- 111
+num.names$ -- 20
+pop$ -- 577
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1070
+skip$ -- 1142
 stack$ -- 0
-substring$ -- 497
-swap$ -- 773
-text.length$ -- 15
+substring$ -- 554
+swap$ -- 833
+text.length$ -- 18
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 23
+type$ -- 24
 warning$ -- 1
-while$ -- 52
-width$ -- 25
-write$ -- 237
+while$ -- 57
+width$ -- 26
+write$ -- 248
 (There was 1 warning)
