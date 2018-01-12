@@ -56,8 +56,7 @@ johannes.wuensche@st.ovgu.de}
 % in the abstract
 \begin{abstract}
 
-Machine Learning is probably the most present topic of computer science in general media. This popularity only increased over the recent years thorugh widely publicly known applications ranging from DeepBlue to IBM Watson and AlphaGo. Because of these successes Machine Learning is sometimes viewed as an omnipotent solution to every imaginable problem. This is most certainly not the case, based on our studies we can conclude that their capabilities depend on done design and engineering work. In this paper we want to give an short introduction into the most performance influencing factors to performance, during the most time intensive phase, the training.
-
+Machine Learning is probably the most present topic of computer science in general media. This popularity only increased over the recent years thorugh widely publicly known applications ranging from DeepBlue to IBM Watson and AlphaGo. Because of these successes Machine Learning, and the specialized sub-field of Deep Learning,  is sometimes viewed as an omnipotent solution to every imaginable problem. This is most certainly not the case. Based on our studies we can conclude that the capabilities of neural networks (i.e., the model used in deep learning) depend on the quality of their training. This process, in turn, can be time-consuming. Its performance depends on good design and engineering work. In this paper we want to give an short introduction into the most performance influencing factors when working with neural networks, with a focus on their training stage.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -67,10 +66,14 @@ Machine Learning seems to be everywhere around us. With the recent success of Ne
 In this paper we want to observe and identify the most performance influencing factors of these networks while designing and implementing them for specific applications, with both small and large scale deployments.
 We expect that this study will provide help for readers interested in learning about the the initial design of neural networks, requirements for managing data, and operations of an efficient neural network.
 
-During our study we found no comprehensive study touching this thema not being based on the comparison of frameworks or on an experimental execution on different platforms or frameworks. This paper is based on these publications.
+During our research we found no comprehensive study touching this topic. The most closely related work are studies with a focus on comparing different platforms or frameworks. This paper is based on these publications.
 
- At first we attend to the choice of neural network and the impact of this decision. Afterwards we have a look, on one hand, at small scale neural networks running on a single machine without large data sets and on the other hand, large scale neural networks operating with more layers and nodes, large data sets and a distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time. We divide our survey into, the choice of neural network, the choice of processing units, including basic data distribution strategies for multi-processing, a discussion of the challenges in running small and large scales.
-
+ At first we attend to the choice of neural network and the impact of this decision. Afterwards we have a look, on one hand, at small scale neural networks running on a single machine without large data sets and on the other hand, large scale neural networks operating with more layers and nodes, large data sets and a distributed system to handle the computational power required by the neural network training algorithms to be completed in reasonable time. We divide our survey into
+\begin{itemize}
+\item the choice of neural network
+\item the choice of processing units, including basic data distribution strategies for multi-processing
+\item a discussion of the challenges in running small and large scales.
+\end{itemize}
 
 %%%%BEGIN RELATED WORK
 
@@ -84,7 +87,7 @@ The topic of considering the performance of neural networks and the influencing 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth]{neuralnetworks.png}
+\includegraphics[width=0.5\textwidth]{neuralnetworks.png}
 \caption{"A mostly complete chart of Neural Networks" by "The Asimov Institute" extract of only in this paper referenced networks\cite{zoo}}
 \end{figure}
 
@@ -93,16 +96,16 @@ The topic of considering the performance of neural networks and the influencing 
 
 In this section we introduce some commonly used models, we consider some performance factors and we refer readers to related work in evaluating performance factors of these models. For this we begin by showing some of the history of Deep Learning followed by clarification of the distinction between what we define as small and large scale networks.
 
-The term "Deep Learning" itself is just a rebranding of the since the 80s existing concept of multilayered perceptrons. Its basic idea is to simply use more than 1 layer in a neural network to increase the accuracy of the learned model\cite{deeplearning101}. A good defintion of Deep Learning is delivered by Deng in his 2014 book "Deep learning: methods and applications"\cite{deng2014deep}: "A class of machine learning techniques that exploit many layers of non-linear information processing for supervised or unsupervised feature extraction and transformation, and for pattern analysis and classification". Additionally to the reuse of multilayer perceptrons the ideas of Deep Belief Networks and unsupervised pretraining have been introduced.
+The term "Deep Learning" itself is just a rebranding of the since the 50s existing concept of multilayered perceptrons\cite{frank1957perceptron}. Its basic idea is to simply use more than 1 layer in a neural network to increase the accuracy of the learned model\cite{deeplearning101}. A good defintion of Deep Learning is delivered by Deng in his 2014 book "Deep learning: methods and applications"\cite{deng2014deep}: "A class of machine learning techniques that exploit many layers of non-linear information processing for supervised or unsupervised feature extraction and transformation, and for pattern analysis and classification". Additionally to the reuse of multilayer perceptrons the ideas of Deep Belief Networks and unsupervised pretraining were introduced in 2006\cite{hinton2006fast}, opening the door for continuous improvements in different aspects of neural networks. Among the relatively recent developments in neural networks has been the adoption of GPUs for processing, as exemplified in work winning the ImageNet challenge\cite{krizhevsky2012imagenet}.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth]{pop.png}
+\includegraphics[width=0.5\textwidth]{pop.png}
 \caption{Popularity in \% of the term "deep learning" on Google in relation to maximum peak, plotted with the Google Trends tool provided by Google}
 \end{figure}
 
 
-Since then Deep Learning has experienced an almost exponential growth in popularity as seen in Figure 2, where the popularity steeply increases around 2014.
+Since then Deep Learning has experienced an almost exponential growth in popularity as seen in Figure 2, where the popularity steeply increased around 2014.
 %%%%END DEEP LEARNING
 
 %%%%BEGIN SMALL SCALE NEURAL NET DESCRIPTION
@@ -119,16 +122,16 @@ On the other hand as a large scale neural network applications we define a netwo
 %%%%BEGIN DESCRIPTION NETWORKS USED LATER
 
 %simple
-The most commonly used shallow Neural Networks are Feed Forward, Auto Encoders and Restricted Boltzmann Machines, which all have only a single layer of hidden nodes and therefore are quite restricted in what they can compute based on the input data. 
+The most commonly used shallow Neural Networks are Feed Forward, Auto Encoders and Restricted Boltzmann Machines, which all have only a single layer of hidden nodes and therefore are quite restricted in what they can compute based on the input data. They are shown in Figure 1.
 
-Feed Forward Networks(FFN) simply connects input, hidden and output layers with an all to all connection between the layers with the number of outputs being equal or smaller to the number of hidden nodes.
+Feed Forward Networks(FFN) simply connect input, hidden and output layers with an all to all connection between the layers with the number of outputs being equal or smaller to the number of hidden nodes.
 
-Auto Encoders(AE) are of an similar build but the hidden layer compresses the input information into fewer nodes while these are later again decompressed to output nodes that match the previously given input nodes, therefore AE can be classified as a generative network.
+Auto Encoders(AE) are of a similar build but the hidden layer compresses the input information into fewer nodes while these are later again decompressed to output nodes that match the previously given input nodes, therefore AE can be classified as a generative network.
 
 Restricted Boltzmann Machines(RBM) only have an input and an output layer with an all to all connection between these. This RBM has in comparison to the normal Boltzmann Machine a better training behaviour which leads to a faster trained network.
 
 %deep
-A more advanced architecture is to increase the number of hidden layers to enlarge the application possibility of these networks for more complex models these are then called Deep Networks. The more commonly used ones are Variational Auto Encoders , Deep Belief Networks, Generative Adversial Networks, Recurrent Neural Networks ,e.g. Long short-term memory networks, Deep Convolutional Neural Networks, Deconvolutional Networks, and Recursive Neural Networks.
+A more advanced architecture is to increase the number of hidden layers to enlarge the application possibility of these networks for more complex models, these are then called Deep Networks. The more commonly used ones are Variational Auto Encoders , Deep Belief Networks, Generative Adversial Networks, Recurrent Neural Networks, e.g. Long short-term memory networks, Deep Convolutional Neural Networks, Deconvolutional Networks, and Recursive Neural Networks. They are also shown in Figure 1.
 
 Variational Auto Encoders(VAE) consists of an encoder, sampler and decoder and are able to to generate output based on specification given to the VAE. 
 
@@ -137,7 +140,7 @@ data and the FFN to adjust the learned values slightly to improve the result. Th
 
 Generative Adversial Networks(GAN) like the VAE create random output based on the model found in the given training data. VAE are a specialization of GAN because of the restrictions that can be set for the output which is not possible in a GAN.
 
-Deep Convolutional Networks(DCN) are based on Convolutional Nodes compressing the incoming information into the needed base model and then calculating the required output.\cite{PattersonGibson17} They are used to abstract input information into more general models. These networks especially are being used to process images.
+Deep Convolutional Networks(DCN) are based on Convolutional Nodes compressing the incoming information into the needed base model and then calculating the required output\cite{PattersonGibson17}. They are used to abstract input information into more general models. These networks are specially being used to process images.
 
 Deconvolutional Networks(DN)\cite{zeiler2014visualizing} are less surprisingly the opposite of DCN in the idea that input information is first spread to a larger amount of nodes and then processed by the following Nodes to be used by the output.
 
@@ -148,7 +151,7 @@ Long short-term memory(LSTM)\cite{hochreiter1997long} are a variant of Recurrent
 %%%%BEGIN TRAINING ALGORITHMS
 %%THE POSITION OF THIS CAN BE CHANGED
 The reason why the training of neural networks is so expensive can be traced back to the algorithm used to train all commonly used networks, which is backpropagation. Backpropagation is based on the idea that we first calculate the deviation of the output values from the actual result and then use this backwards thorugh the layers of the net to calculate a correction,based on the error of the node and the learning rate, for each connection weight until the input layer is reached\cite{riedmiller1993direct}. Some Networks like DBN use a slightly 
-diverged "Gentle" Backpropagation, which relies on a learning rate after the initial values have been found from the training data with the help of the pretrained RBM \cite{PattersonGibson17}.
+different "Gentle" Backpropagation, which relies on a learning rate after the initial values have been found from the training data with the help of the pretrained RBM \cite{PattersonGibson17}.
 %%%%END TRAINING ALGORITHMS
 
 %%%%BEGIN INFORMATION DATA FLOW
@@ -157,15 +160,13 @@ Another performance influencing factor besides the actual neural net and the lea
 
 This large amount of data can, for one, take some time to be transferred, if for example this data package is required by an external processing unit like a GPU other units cannot receive new data and therefore the performance drops due to them being idle. Also if too much data is needed in relation to the actual output the data storage can achieve enduring performance loss will occur.  
 
-Further can the required training data exceed direct accessible memory from the processing unit, enhancing the problem of delivering data to all processing units.
-
 Furthermore if the training data exceeds the memory for the processing unit, the problem of delivering data to all units becomes more pressing.
 
 %%%%END INFORMATION DATA FLOW
 
 %%%%BEGIN PROCESSING UNIT
 
-The next major performance influencing factor will be the choice of the actual processing unit. This decision is the most computation time influencing. This decision can have the biggest influence on computation time. We divide our processing unit into three groups starting with the CPU,which have a greater memory capability because they can be equipped with additional RAM sticks but possess a smaller parallelization limitation than GPUs because of their different architecture, then the GPU,with a much larger architectural focus on multithreading than CPUs, and following GPU Clusters, being simply a group of GPUs either in a single node or spanning multiple nodes, like they are used in supercomputers.
+The next major performance influencing factor will be the choice of the actual processing unit. This decision is the most computation time influencing. This decision can have the biggest influence on computation time. We divide our processing unit into three groups starting with the CPUs, which have a greater memory capability because they can be equipped with additional RAM sticks but possess a smaller parallelization limitation than GPUs because of their different architecture, then the GPUs,with a much larger architectural focus on multithreading than CPUs, and following GPU-Clusters, being simply a group of GPUs either in a single node or spanning multiple nodes, like they are used in supercomputers.
 
 %%%%END PROCESSIONG UNIT
 
@@ -182,7 +183,7 @@ The most common neural network frameworks which we, because of their wide popula
 
 
 %Transition
-Next will follow the choice of neural network and its influence on performance.
+Next will follow the choice of neural netwok as well as the setting of some hyper-parameters like the amount of nodes, followed by the choice of the processing unit
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGIN CHOICE OF NETWORK
@@ -198,17 +199,17 @@ To assist this decision we offer some general guidelines for when to use shallow
 %%%%BEGIN ADVANTAGES DISADVANTAGES SIMPLE AND DEEP
 \subsection{Choice of Neural Network}
 \subsubsection{Shallow Networks}
-Simple task can be done by a network which is not deep, like a FFN or a RBM. They are faster to train and even larger training sets can be completed in a reasonable time without multithreading or usage of GPUs. But their limited depth can decrease the accuracy of the model when the learned task is more complex than expected. In other words, these models have a risk to overfit the training data. Accordingly, to use them, careful validation is required. 
+Simple learning task can be done by a network which is not deep, like a FFN or a RBM. They are faster to train and even larger training sets can be completed in a reasonable time without multithreading or usage of GPUs. But their limited depth can decrease the accuracy of the model when the learned task is more complex than expected. In other words, these models have a risk to overfit the training data. Accordingly, to use them, careful validation is required. 
 
 \subsubsection{Deep Networks}
-More complex tasks often require a deep neural network that can learn a more complex model than shallow networks and offer a greater accuracy while doing this. The major downside of these networks is that they require a larger amount of time to train and can be oversized for the actual learning task and might adding unnecessary computation time. Large scale applications mostly contain deep networks because of their larger training sets and more complex models underlying the actual task.
+More complex tasks often require a deep neural network that can learn a more complex model than shallow networks and offer a greater accuracy while doing this. The major downside of these networks is that they require a larger amount of time to train and can be oversized for the actual learning task, adding unnecessary computation time. Large scale applications mostly contain deep networks because of their larger training sets and more complex models underlying the actual task.
 
-We can not offer a clear answer about when to use which kind of network, every problem must be individually analyzed and based on the information, and complexity, as well as the acceptable error rate of the final network the decision has to be made. For cases that are unclear a shallow network can first be constructed,because of their short training time, and if the result is unsatisfying a more complex network can be considered.  Also it is advisable to use a deep network if the learning task involves image or audio understanding, or the task needs to include recurring changes over time of an input signal\cite{PattersonGibson17}.
+We can not offer a clear answer about when to use which kind of network. Every problem must be individually analyzed and based on the information, and complexity, as well as the acceptable error rate of the final network the decision has to be made. For cases that are unclear a shallow network can first be constructed,because of their short training time, and if the result is unsatisfying a more complex network can be considered.  Also it is advisable to use a deep network if the learning task involves image or audio understanding, or the task needs to include recurring changes over time of an input signal\cite{PattersonGibson17}.
 %%%%END ADVANTAGES DISADVANTAGES SIMPLE AND DEEP
 
 %%%%INTITAL VALUES
 
-An also important choice is the setting of the initial values of connection weights, here it is advisable to start at low values like $0.1$ to prevent straying too far from the optimal solution, since algorithm like backpropagation mostly find a local optimum initial values too far of from the global optimum will deliver worse results.
+Initial values, next to the number of nodes, the type of network, the activation functions, the activation thresholds, learning rate, the size of the batches, the training algorithm, the number of training epochs, and others, are called the hyper-parameters of the network. We can define these, informally, as the configurable factors that determine the training process in the network and the convergence of error rates. In our discussion, (given that our focus is on performance, with a data management perspective) we only consider the number of nodes. The precise effect of other hyper-parameters is, arguably less data management related, and thus, beyond the scope of our work.
 
 %%%%END INITIAL VALUES
 
@@ -296,17 +297,6 @@ A main advantage of Multi-GPU is of course the increased computation power avail
 %memory
 Another advantage is the greater availability of memory somewhat easing the restrictions of the memory restricted GPUs structure. While this is an advantage it is not efficient if used as the single goal of multiple GPU usage because of the high price connected to acquiring them.
 
-%speedup figure
-Figure 3 visualizes this improvement showing the reduction of training time steadily with the increasing of amount of GPUs. Although costly this leads to a constant improvement. Higher Numbers of GPUs can be again slower or offer no significant improvement if used in a single system because of an increasing communication overhead and bottleneck for the data flow in the CPU, which is responsible for managing separate GPUs.
-
-\subsubsection{Parallelism between GPUs}
-There are two kind of parallelism approaches applicable to the problem, first there is data parallelism which splits the training data into multiple sets. Each subset and a complete replica of the model is assigned to a processing unit, such that each can calculate the gradients for all the layers. Finally, before moving to the next epoch, the gradients of all units are aggregates such that the parameters can be updated, shipping a new replica for the next epoch. This can be done by dividing the data by case or by feature. The second approach is model parallelism in which the net is divided into separately runnable parts, each part can be assigned to a separate unit such that all units train over the complete data, but each calculates gradients for a subset of neural network nodes. Naturally, inter-processing unit communication might be needed when the gradients have to be propagated to other processors. For networks that do not have fully connected layers, such that the distribution can be made avoiding (to an extent) inter-unit processing. This method is also fitting for single node distributions in which the GPUs share one PCIe bus, but lead to the result being more vulnerable to calculation failures \cite{sastre2017scalability}.
-
-\subsubsection{Synchronization between GPUs}
-For synchronizing Multi-GPU setups like in Figure 4 there are theoretically two choices. One being the synchronous method in which after a value is calculated it is immediately shared with every other GPU. This method is applicable to all Multi-GPU configurations and delivers an acceptable result\cite{wang2016deep}. The update of values for all GPUs occurs only after the updated values have been sent by each of them. Until a large amount of over 40 GPUs are used this mehtod can be used without limitation\cite{sastre2017scalability}. 
-There is also the possibility to run the GPUs asynchronously, by letting them use different versions of the values and only updating them periodically by sending an update request. This can lead to a slight improvement of the training speed but it might also have a slight detrimental effect in the learning process\cite{wang2016deep}. This depends on the network model and training algorithm. 
-
-
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{a.png}
@@ -314,6 +304,19 @@ There is also the possibility to run the GPUs asynchronously, by letting them us
 \caption{Time per mini-batch in s compared between different amount of GPUs used\cite{shi2016benchmarking}}
 \label{fig_m_gpu}
 \end{figure}
+
+%speedup figure
+Figure 3 visualizes this improvement showing the reduction of training time steadily with the increasing of amount of GPUs. Although costly this leads to a constant improvement. Higher Numbers of GPUs can be again slower or offer no significant improvement if used in a single system because of an increasing communication overhead and bottleneck for the data flow in the CPU, which is responsible for managing separate GPUs.
+
+\subsubsection{Parallelism between GPUs}
+There are two kind of parallelism approaches applicable to the problem, first there is data parallelism which splits the training data into multiple sets. Each subset and a complete replica of the model is assigned to a processing unit, such that each can calculate the gradients for all the layers. Finally, before moving to the next epoch, the gradients of all units are aggregates such that the parameters can be updated, shipping a new replica for the next epoch. This can be done by dividing the data by case or by feature. The second approach is model parallelism in which the net is divided into separately runnable parts, each part can be assigned to a separate unit such that all units train over the complete data, but each calculates gradients for a subset of neural network nodes. Naturally, inter-processing unit communication might be needed when the gradients have to be propagated to other processors. For networks that do not have fully connected layers, such that the distribution can be made avoiding (to an extent) inter-unit processing. This method is also fitting for single node distributions in which the GPUs share one PCIe bus, but lead to the result being more vulnerable to calculation failures \cite{sastre2017scalability}.
+
+\subsubsection{Synchronization between GPUs}
+For synchronizing Multi-GPU setups like in Figure 5 there are theoretically two choices. One being the synchronous method in which after a value is calculated it is immediately shared with every other GPU. This method is applicable to all Multi-GPU configurations and delivers an acceptable result\cite{wang2016deep}. The update of values for all GPUs occurs only after the updated values have been sent by each of them. Until a large amount of over 40 GPUs are used this mehtod can be used without limitation\cite{sastre2017scalability}. 
+There is also the possibility to run the GPUs asynchronously, by letting them use different versions of the values and only updating them periodically by sending an update request. This can lead to a slight improvement of the training speed but it might also have a slight detrimental effect in the learning process\cite{wang2016deep}. This depends on the network model and training algorithm. 
+
+
+
 
 \subsection{GPU-Clusters}
 
@@ -327,7 +330,7 @@ The next logical step is to use multiple Multi-GPU systems further reducing trai
 \end{figure}
 
 \subsubsection{Multiple GPU-Clusters}
-Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required. Similar to multiple GPUs this leads at the beginning with 2 or more Clusters to a stronger improvement than later on with 8 to 16 Clusters as seen in (Figure 3)
+Taking a step further it is possible to connect multiple Clusters of GPUs to compute a single task. In doing this we again increase raw computation power, but also increase the total amount of communication required. Similar to multiple GPUs this leads at the beginning with 2 or more Clusters to a stronger improvement than later on with 8 to 16 Clusters as seen in (Figure 4)
 
 \subsubsection{Parallelism of multiple GPU-Clusters}
 Like the Multi-GPU setup this can be done by creating either data or model parallelism. Combination are also possible, for instance in a setup consisting of multiple Clusters and one single communication server model parallelism can be used to distribute the model on the different clusters, but they internally can use data parallelism to split the work\cite{wang2016deep}.

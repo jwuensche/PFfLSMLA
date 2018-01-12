@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.18)  12 JAN 2018 13:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.18)  12 JAN 2018 15:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,95 +598,104 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 73.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 73.
 <neuralnetworks.png, id=1, 1907.125pt x 1630.09pt>
 File: neuralnetworks.png Graphic file (type png)
 <use neuralnetworks.png>
-Package pdftex.def Info: neuralnetworks.png  used on input line 87. on input li
-ne 87.
-Package pdftex.def Info: Requested size: 206.39685pt x 176.4003pt on input line
- 87.
-<pop.png, id=3, 926.46124pt x 372.39125pt>
-File: pop.png Graphic file (type png)
-<use pop.png>
-Package pdftex.def Info: pop.png  used on input line 100. on input line 100.
-Package pdftex.def Info: Requested size: 206.39685pt x 82.96048pt on input line
- 100.
+Package pdftex.def Info: neuralnetworks.png  used on input line 90. on input li
+ne 90.
+Package pdftex.def Info: Requested size: 258.0pt x 220.50037pt on input line 90
+.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 90--91
+ [][] 
+ []
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
  <./neuralnetworks.png>]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 156.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 156.
+<pop.png, id=13, 926.46124pt x 372.39125pt>
+File: pop.png Graphic file (type png)
+<use pop.png>
+Package pdftex.def Info: pop.png  used on input line 103. on input line 103.
+Package pdftex.def Info: Requested size: 258.0pt x 103.7006pt on input line 103
+.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 103--104
+ [][] 
+ []
 
 [2 <./pop.png>] [3]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 269.
+(Font)              <8> on input line 270.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 269.
+(Font)              <6> on input line 270.
  [4]
-Underfull \hbox (badness 2547) in paragraph at lines 306--308
+<a.png, id=27, 762.85pt x 596.2275pt>
+File: a.png Graphic file (type png)
+<use a.png>
+Package pdftex.def Info: a.png  used on input line 302. on input line 302.
+Package pdftex.def Info: Requested size: 206.39685pt x 161.31108pt on input lin
+e 302.
+
+Underfull \hbox (badness 2547) in paragraph at lines 315--317
  \T1/ptm/m/it/10 2) Syn-chro-niza-tion be-tween GPUs: [][] \T1/ptm/m/n/10 For s
 yn-chro-niz-ing
  []
 
-<a.png, id=27, 762.85pt x 596.2275pt>
-File: a.png Graphic file (type png)
-<use a.png>
-Package pdftex.def Info: a.png  used on input line 312. on input line 312.
-Package pdftex.def Info: Requested size: 206.39685pt x 161.31108pt on input lin
-e 312.
 <gpu_cluster_perf_win.png, id=28, 1021.8175pt x 793.96625pt>
 File: gpu_cluster_perf_win.png Graphic file (type png)
 <use gpu_cluster_perf_win.png>
-Package pdftex.def Info: gpu_cluster_perf_win.png  used on input line 324. on i
-nput line 324.
+Package pdftex.def Info: gpu_cluster_perf_win.png  used on input line 327. on i
+nput line 327.
 Package pdftex.def Info: Requested size: 206.39685pt x 160.36537pt on input lin
-e 324.
+e 327.
 [5 <./a.png> <./gpu_cluster_perf_win.png>]
 <example_configuration.png, id=34, 800.9925pt x 349.305pt>
 File: example_configuration.png Graphic file (type png)
 <use example_configuration.png>
-Package pdftex.def Info: example_configuration.png  used on input line 358. on 
-input line 358.
+Package pdftex.def Info: example_configuration.png  used on input line 361. on 
+input line 361.
 Package pdftex.def Info: Requested size: 206.39685pt x 90.00699pt on input line
- 358.
+ 361.
 <cluster_setup.png, id=35, 634.37pt x 292.09125pt>
 File: cluster_setup.png Graphic file (type png)
 <use cluster_setup.png>
-Package pdftex.def Info: cluster_setup.png  used on input line 370. on input li
-ne 370.
+Package pdftex.def Info: cluster_setup.png  used on input line 373. on input li
+ne 373.
 Package pdftex.def Info: Requested size: 206.39685pt x 95.03102pt on input line
- 370.
+ 373.
  [6 <./example_configuration.png> <./cluster_setup.png>] (./paper.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 32--35
+Underfull \hbox (badness 10000) in paragraph at lines 44--47
 []\T1/ptm/m/n/8 Feb 2017. [On-line]. Avail-able:
  []
 
 
-Overfull \hbox (41.9336pt too wide) in paragraph at lines 32--35
+Overfull \hbox (41.9336pt too wide) in paragraph at lines 44--47
 \T1/ptm/m/n/8 https://beamandrew.github.io/deeplearning/2017/02/23/deep_learnin
 g_101_part1.html 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 38.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 50.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 38.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 50.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 38.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 50.
 
-Underfull \hbox (badness 1400) in paragraph at lines 48--53
+Underfull \hbox (badness 1400) in paragraph at lines 65--70
 []\T1/ptm/m/n/8 J. Pat-ter-son and A. Gib-son, \T1/ptm/m/it/8 Deep Learn-ing: A
 
  []
 
-
-Underfull \hbox (badness 1527) in paragraph at lines 132--136
+[7]
+Underfull \hbox (badness 1527) in paragraph at lines 141--145
 \T1/ptm/m/n/8 Ac-cess Date: 07.01.18 11:04:34. [On-line]. Avail-able:
  []
 
@@ -702,27 +711,29 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7] (./paper.aux) ) 
+[8
+
+] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 3044 strings out of 494879
- 45168 string characters out of 6178490
- 105453 words of memory out of 5000000
- 6326 multiletter control sequences out of 15000+600000
+ 3046 strings out of 494879
+ 45213 string characters out of 6178490
+ 105461 words of memory out of 5000000
+ 6328 multiletter control sequences out of 15000+600000
  114636 words of font info for 113 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  41i,7n,25p,1793b,277s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}<
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utm
-r8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (7 pages, 640666 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (8 pages, 642740 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 77 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
