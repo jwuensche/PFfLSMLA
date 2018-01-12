@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.18)  11 JAN 2018 18:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.18)  12 JAN 2018 13:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -608,25 +608,26 @@ Package pdftex.def Info: Requested size: 206.39685pt x 176.4003pt on input line
 <pop.png, id=3, 926.46124pt x 372.39125pt>
 File: pop.png Graphic file (type png)
 <use pop.png>
-Package pdftex.def Info: pop.png  used on input line 93. on input line 93.
+Package pdftex.def Info: pop.png  used on input line 100. on input line 100.
 Package pdftex.def Info: Requested size: 206.39685pt x 82.96048pt on input line
- 93.
+ 100.
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
- <./neuralnetworks.png> <./pop.png>]
+ <./neuralnetworks.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 154.
+(Font)              <7> on input line 156.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 154.
- [2] [3]
+(Font)              <5> on input line 156.
+
+[2 <./pop.png>] [3]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 267.
+(Font)              <8> on input line 269.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 267.
+(Font)              <6> on input line 269.
  [4]
-Underfull \hbox (badness 2547) in paragraph at lines 305--307
+Underfull \hbox (badness 2547) in paragraph at lines 306--308
  \T1/ptm/m/it/10 2) Syn-chro-niza-tion be-tween GPUs: [][] \T1/ptm/m/n/10 For s
 yn-chro-niz-ing
  []
@@ -634,31 +635,31 @@ yn-chro-niz-ing
 <a.png, id=27, 762.85pt x 596.2275pt>
 File: a.png Graphic file (type png)
 <use a.png>
-Package pdftex.def Info: a.png  used on input line 311. on input line 311.
+Package pdftex.def Info: a.png  used on input line 312. on input line 312.
 Package pdftex.def Info: Requested size: 206.39685pt x 161.31108pt on input lin
-e 311.
+e 312.
 <gpu_cluster_perf_win.png, id=28, 1021.8175pt x 793.96625pt>
 File: gpu_cluster_perf_win.png Graphic file (type png)
 <use gpu_cluster_perf_win.png>
-Package pdftex.def Info: gpu_cluster_perf_win.png  used on input line 323. on i
-nput line 323.
+Package pdftex.def Info: gpu_cluster_perf_win.png  used on input line 324. on i
+nput line 324.
 Package pdftex.def Info: Requested size: 206.39685pt x 160.36537pt on input lin
-e 323.
+e 324.
 [5 <./a.png> <./gpu_cluster_perf_win.png>]
 <example_configuration.png, id=34, 800.9925pt x 349.305pt>
 File: example_configuration.png Graphic file (type png)
 <use example_configuration.png>
-Package pdftex.def Info: example_configuration.png  used on input line 357. on 
-input line 357.
+Package pdftex.def Info: example_configuration.png  used on input line 358. on 
+input line 358.
 Package pdftex.def Info: Requested size: 206.39685pt x 90.00699pt on input line
- 357.
+ 358.
 <cluster_setup.png, id=35, 634.37pt x 292.09125pt>
 File: cluster_setup.png Graphic file (type png)
 <use cluster_setup.png>
-Package pdftex.def Info: cluster_setup.png  used on input line 369. on input li
-ne 369.
+Package pdftex.def Info: cluster_setup.png  used on input line 370. on input li
+ne 370.
 Package pdftex.def Info: Requested size: 206.39685pt x 95.03102pt on input line
- 369.
+ 370.
  [6 <./example_configuration.png> <./cluster_setup.png>] (./paper.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 32--35
 []\T1/ptm/m/n/8 Feb 2017. [On-line]. Avail-able:
@@ -709,7 +710,7 @@ Here is how much of TeX's memory you used:
  6326 multiletter control sequences out of 15000+600000
  114636 words of font info for 113 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 41i,7n,25p,1870b,277s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,7n,25p,1793b,277s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}<
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
@@ -718,7 +719,7 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utm
 r8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (7 pages, 639420 bytes).
+Output written on paper.pdf (7 pages, 640666 bytes).
 PDF statistics:
  74 PDF objects out of 1000 (max. 8388607)
  44 compressed objects within 1 object stream
